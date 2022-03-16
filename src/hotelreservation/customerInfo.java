@@ -286,17 +286,15 @@ private String checkOut;
                 .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(customerInputPanelLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(checkInLabel)
-                            .addComponent(checkOutLabel)))
+                        .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkInLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(checkOutLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addComponent(enterCheckOut)
                     .addComponent(enterCheckIn, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(confirmationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
-
-        confirmationButton.getAccessibleContext().setAccessibleName("Confirm Your Reservation");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

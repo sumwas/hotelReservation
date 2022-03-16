@@ -30,6 +30,7 @@ public class welcome extends javax.swing.JFrame {
         reservationButton = new java.awt.Button();
         welcomeLabel = new javax.swing.JLabel();
         hotelIMG = new javax.swing.JLabel();
+        reservationButton1 = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -51,6 +52,15 @@ public class welcome extends javax.swing.JFrame {
 
         hotelIMG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotelPictues/hotelImage.jpg"))); // NOI18N
 
+        reservationButton1.setActionCommand("Cancel Reservation ");
+        reservationButton1.setBackground(new java.awt.Color(255, 255, 255));
+        reservationButton1.setLabel("Cancel Reservation");
+        reservationButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reservationButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -62,12 +72,13 @@ public class welcome extends javax.swing.JFrame {
                         .addComponent(hotelIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(282, 282, 282)
-                        .addComponent(welcomeLabel)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 248, Short.MAX_VALUE)
-                .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(243, 243, 243))
+                        .addComponent(welcomeLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(reservationButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,8 +87,10 @@ public class welcome extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(hotelIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(reservationButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,6 +108,12 @@ public class welcome extends javax.swing.JFrame {
     private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_formPropertyChange
+
+    private void reservationButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationButton1ActionPerformed
+        // TODO add your handling code here:
+        new cancelRoom().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_reservationButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,6 +153,7 @@ public class welcome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel hotelIMG;
     private java.awt.Button reservationButton;
+    private java.awt.Button reservationButton1;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }
