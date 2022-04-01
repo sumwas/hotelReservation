@@ -13,9 +13,20 @@ public class confirmation extends javax.swing.JFrame {
 
     /**
      * Creates new form confirmation
+     * @param info
+     * @param number
      */
-    public confirmation() {
+   // public confirmation() {
+     //   initComponents();
+    //}
+    
+
+
+             
+        public confirmation(String info, int number){
         initComponents();
+        holder.setText(info);
+        resNumber.setText(number + "");
     }
 
     /**
@@ -29,6 +40,8 @@ public class confirmation extends javax.swing.JFrame {
 
         confirmationLabel = new javax.swing.JLabel();
         exitMessageLabel = new javax.swing.JLabel();
+        resNumber = new javax.swing.JLabel();
+        holder = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,25 +50,41 @@ public class confirmation extends javax.swing.JFrame {
         exitMessageLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         exitMessageLabel.setText("See you soon!");
 
+        resNumber.setText("resNumber");
+
+        holder.setText("holder");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(exitMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(288, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(holder)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(resNumber))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(261, 261, 261)
+                        .addComponent(exitMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(172, 172, 172)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resNumber))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(holder)
+                .addGap(148, 148, 148)
                 .addComponent(exitMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
 
         pack();
@@ -91,7 +120,7 @@ public class confirmation extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new confirmation().setVisible(true);
+           //     new confirmation().setVisible(true);
             }
         });
     }
@@ -99,5 +128,7 @@ public class confirmation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel confirmationLabel;
     private javax.swing.JLabel exitMessageLabel;
+    private javax.swing.JLabel holder;
+    private javax.swing.JLabel resNumber;
     // End of variables declaration//GEN-END:variables
 }
