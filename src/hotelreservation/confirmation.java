@@ -29,6 +29,10 @@ public class confirmation extends javax.swing.JFrame {
         resNumber.setText(number + "");
     }
 
+    private confirmation() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -120,7 +124,7 @@ public class confirmation extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-           //     new confirmation().setVisible(true);
+                new confirmation().setVisible(true);
             }
         });
     }
