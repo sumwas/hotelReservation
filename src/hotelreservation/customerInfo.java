@@ -22,6 +22,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author 12137
  */
 public class customerInfo extends javax.swing.JFrame {
+    int generateNum;
+
 private static customerInfo customer= null;
 //for now, entries will be taken as strings
 //next sprint we will some type to int only
@@ -39,6 +41,13 @@ private String checkOut;
     public customerInfo() {
         initComponents();
     }
+    
+    public customerInfo(int number) {
+    generateNum = number;
+
+    initComponents();
+     }
+    
     
 //method not being used.. not sure if we need this.    
     public static synchronized customerInfo getInstance(){
@@ -344,9 +353,19 @@ private String checkOut;
         Logger.getLogger(customerInfo.class.getName()).log(Level.SEVERE, null, ex);
     }
          //links this panel to hotelRoom via button click
-        confirmation confirm = new confirmation();
-        confirm.show();
+       // confirmation confirm = new confirmation();
+     //   confirm.show();
         dispose();
+        
+        
+        //generate random number between 1 and 10
+        //send number to confirmation page to display
+        java.util.Random x = new java.util.Random();
+        int numGenerate = 1 + x.nextInt(10);
+        String info = enterFirstName.getText();
+        new confirmation(info, numGenerate).setVisible(true);
+        this.setVisible(false);
+
     }//GEN-LAST:event_confirmationButtonActionPerformed
 
     private void enterLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterLastNameActionPerformed
