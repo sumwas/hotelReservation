@@ -10,21 +10,28 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author 12137
  */
 public class customerInfo extends javax.swing.JFrame {
-    int generateNum;
 
-private static customerInfo customer= null;
+int generateNum;
+//private static customerInfo customer = null;
 //for now, entries will be taken as strings
 //next sprint we will some type to int only
 private String firstName;
@@ -34,29 +41,69 @@ private String phoneNumber;
 private String emailAddress;
 private String checkIn;
 private String checkOut;
+private int selectedIndex;
         
+
+
+
     /**
      * Creates new form customerInfo
      */
     public customerInfo() {
         initComponents();
-    }
-    
-    public customerInfo(int number) {
-    generateNum = number;
-
-    initComponents();
-     }
-    
-    
-//method not being used.. not sure if we need this.    
-    public static synchronized customerInfo getInstance(){
-        if(customer == null){
-            customer = new customerInfo();   
-        }
-        return customer;
-    }
         
+        /*Calling getCheckInDates(), iterating through arrayList to create 
+        array to set in check-in comboBox */ 
+        ArrayList checkInDays = getCheckInDates();
+        String[] checkInDaysArray = new String[checkInDays.size()];
+            for(int i = 0; i < checkInDays.size(); i++){
+                checkInDaysArray[i] = checkInDays.get(i).toString() + " ";
+            }
+        checkInCombo.setModel(new javax.swing.DefaultComboBoxModel<>(checkInDaysArray));  
+    }
+    
+    /* Method for Check IN Date list*/
+    public static ArrayList getCheckInDates(){
+        ArrayList currentWeek = new ArrayList(); 
+        LocalDate localDate = LocalDate.now();
+        LocalDate sunday = localDate.with(TemporalAdjusters.next(DayOfWeek.SUNDAY)); 
+            //while condition increments current day by 1 day
+            //adding all the days that are before sunday to the array
+            while(localDate.isBefore(sunday)){
+                currentWeek.add(localDate.format(DateTimeFormatter.ofPattern("MMM dd,yyyy ")));
+                localDate = localDate.plusDays(1);
+            }    
+       return currentWeek; 
+    }
+    
+    
+    
+    /* Method for Check Out Date list
+       selectedCheckIn date is passed in through action(combobox selection)
+       method determines valid user dates for check in starting at the 
+       selectedDay + 1. String array of valid check out dates - only up to sunday of
+       that week. 
+    */
+    public String[] getCheckOutDates(int selectedCheckIn){
+        ArrayList validDatesArrayList = new ArrayList();
+        LocalDate validCheckOut = LocalDate.now().plusDays(selectedIndex);
+        LocalDate sunday = validCheckOut.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+            //adding dates to the arrayList
+            while(validCheckOut.isBefore(sunday)){
+                validCheckOut = validCheckOut.plusDays(1);
+                validDatesArrayList.add(validCheckOut);
+            }
+        String[] validDatesArray = new String[validDatesArrayList.size()];
+            //converting arrayList to string[]
+            for(int i = 0; i < validDatesArrayList.size(); i++){
+                validDatesArray[i] = validDatesArrayList.get(i).toString() + " ";
+            }
+        return validDatesArray; 
+    }
+    
+    
+    
+    /* Write To File Called ON Button Click, taking customer info and writing into one row in sheet*/
     public static void writeToFile(String first, String last, String numOfGuest, String phone, String email, String inDate, String outDate) throws FileNotFoundException, IOException{
         //opening excel file
         String excelFilePath = "hotel_info.xlsx";
@@ -128,10 +175,10 @@ private String checkOut;
         confirmationButton = new java.awt.Button();
         enterLastName = new javax.swing.JFormattedTextField();
         enterGuestNum = new javax.swing.JFormattedTextField();
-        enterPhoneNumber = new javax.swing.JFormattedTextField();
         enterEmailAddress = new javax.swing.JFormattedTextField();
-        enterCheckIn = new javax.swing.JFormattedTextField();
-        enterCheckOut = new javax.swing.JFormattedTextField();
+        enterPhoneNumber = new javax.swing.JFormattedTextField();
+        checkInCombo = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         jFormattedTextField3.setText("jFormattedTextField1");
         jFormattedTextField3.addActionListener(new java.awt.event.ActionListener() {
@@ -185,15 +232,10 @@ private String checkOut;
             }
         });
 
+        enterGuestNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         enterGuestNum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterGuestNumActionPerformed(evt);
-            }
-        });
-
-        enterPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enterPhoneNumberActionPerformed(evt);
             }
         });
 
@@ -203,15 +245,26 @@ private String checkOut;
             }
         });
 
-        enterCheckIn.addActionListener(new java.awt.event.ActionListener() {
+        try {
+            enterPhoneNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        enterPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enterCheckInActionPerformed(evt);
+                enterPhoneNumberActionPerformed(evt);
             }
         });
 
-        enterCheckOut.addActionListener(new java.awt.event.ActionListener() {
+        checkInCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enterCheckOutActionPerformed(evt);
+                checkInComboActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -220,31 +273,10 @@ private String checkOut;
         customerInputPanelLayout.setHorizontalGroup(
             customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(customerInputPanelLayout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(customerInputPanelLayout.createSequentialGroup()
-                        .addComponent(phoneNumLabel)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, customerInputPanelLayout.createSequentialGroup()
-                        .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(checkInLabel)
-                            .addComponent(emailAddLabel))
-                        .addGap(18, 18, 18)))
-                .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(enterCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                    .addComponent(enterPhoneNumber)
-                    .addComponent(enterEmailAddress))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(customerInputPanelLayout.createSequentialGroup()
                 .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(customerInputPanelLayout.createSequentialGroup()
                         .addGap(93, 93, 93)
                         .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(customerInputPanelLayout.createSequentialGroup()
-                                .addGap(260, 260, 260)
-                                .addComponent(checkOutLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(enterCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(customerInputPanelLayout.createSequentialGroup()
                                     .addComponent(guestNumLabel)
@@ -260,11 +292,36 @@ private String checkOut;
                                         .addComponent(enterFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(customerInputPanelLayout.createSequentialGroup()
                                 .addGap(35, 35, 35)
-                                .addComponent(enterInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(enterInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(customerInputPanelLayout.createSequentialGroup()
+                                .addGap(107, 107, 107)
+                                .addComponent(checkInCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(checkOutLabel)
+                                .addGap(13, 13, 13)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(customerInputPanelLayout.createSequentialGroup()
                         .addGap(287, 287, 287)
                         .addComponent(confirmationButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
+            .addGroup(customerInputPanelLayout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(customerInputPanelLayout.createSequentialGroup()
+                        .addComponent(phoneNumLabel)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, customerInputPanelLayout.createSequentialGroup()
+                        .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(checkInLabel)
+                            .addComponent(emailAddLabel))
+                        .addGap(18, 18, 18)))
+                .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(customerInputPanelLayout.createSequentialGroup()
+                        .addComponent(enterPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(customerInputPanelLayout.createSequentialGroup()
+                        .addComponent(enterEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         customerInputPanelLayout.setVerticalGroup(
             customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,23 +341,21 @@ private String checkOut;
                     .addComponent(enterGuestNum, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(guestNumLabel))
                 .addGap(26, 26, 26)
-                .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(enterPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(phoneNumLabel))
+                    .addComponent(phoneNumLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(26, 26, 26)
                 .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(enterEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(emailAddLabel))
-                .addGap(26, 26, 26)
-                .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(customerInputPanelLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkInLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(checkOutLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(enterCheckOut)
-                    .addComponent(enterCheckIn, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(checkInLabel)
+                        .addComponent(checkOutLabel)
+                        .addComponent(checkInCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(confirmationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
@@ -334,38 +389,48 @@ private String checkOut;
     }//GEN-LAST:event_enterFirstNameActionPerformed
 
     private void confirmationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmationButtonActionPerformed
-        
-    try {
-        // TODO add your handling code here:
-        //store text into declared variable
-        //variable = textfieldboxname.getText()
-        firstName = enterFirstName.getText();
-        lastName = enterLastName.getText();
-        guestNum = enterGuestNum.getText(); //no getInt exists, have to use Integer parse
-        phoneNumber = enterPhoneNumber.getText();
-        emailAddress = enterEmailAddress.getText();
-        checkIn = enterCheckIn.getText();
-        checkOut = enterCheckOut.getText();
-        
-        writeToFile(firstName,lastName, guestNum, phoneNumber,emailAddress,checkIn,checkOut);
-        
-    } catch (IOException ex) {
-        Logger.getLogger(customerInfo.class.getName()).log(Level.SEVERE, null, ex);
-    }
-         //links this panel to hotelRoom via button click
-       // confirmation confirm = new confirmation();
-     //   confirm.show();
-        dispose();
-        
-        
-        //generate random number between 1 and 10
-        //send number to confirmation page to display
-        java.util.Random x = new java.util.Random();
-        int numGenerate = 1 + x.nextInt(10);
-        String info = enterFirstName.getText();
-        new confirmation(info, numGenerate).setVisible(true);
-        this.setVisible(false);
 
+        /* TODO add your handling code here:
+            Getting customer info via button click, text is being 
+            stored in declared variable by variable = textfieldboxname.getText()*/
+        firstName = enterFirstName.getText().trim();
+        lastName = enterLastName.getText().trim();
+        guestNum = enterGuestNum.getText().trim(); 
+        phoneNumber = enterPhoneNumber.getText().trim();
+        emailAddress = enterEmailAddress.getText().trim();
+        //MISSING:
+        //checkIn
+        //checkOut
+        
+        //Check for empty fields, else write user info to file
+        if(firstName.isEmpty() || lastName.isEmpty() || guestNum.isEmpty() 
+           || phoneNumber.isEmpty() || emailAddress.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please enter all text fields!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else{
+        try {
+            writeToFile(firstName,lastName, guestNum, phoneNumber,emailAddress,checkIn,checkOut);
+            
+            //generate random number between 1 and 10
+            //send number to confirmation page to display
+            java.util.Random x = new java.util.Random();
+            int numGenerate = 1 + x.nextInt(10);
+            String info = enterFirstName.getText();
+            
+            //linking confirmation page, dependent
+            new confirmation(info, numGenerate).setVisible(true);
+            this.setVisible(false);
+        
+            
+        } catch (IOException ex) {
+            Logger.getLogger(customerInfo.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        }
+    /*links this panel to hotelRoom via button click
+    confirmation confirm = new confirmation();
+    confirm.show();
+    dispose();*/
     }//GEN-LAST:event_confirmationButtonActionPerformed
 
     private void enterLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterLastNameActionPerformed
@@ -377,34 +442,36 @@ private String checkOut;
         // TODO add your handling code here:
     }//GEN-LAST:event_enterGuestNumActionPerformed
 
-    private void enterPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterPhoneNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_enterPhoneNumberActionPerformed
-
     private void enterEmailAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterEmailAddressActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_enterEmailAddressActionPerformed
 
-    private void enterCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterCheckInActionPerformed
+    private void enterPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterPhoneNumberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_enterCheckInActionPerformed
+    }//GEN-LAST:event_enterPhoneNumberActionPerformed
 
-    private void enterCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterCheckOutActionPerformed
+    private void checkInComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInComboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_enterCheckOutActionPerformed
+        selectedIndex = checkInCombo.getSelectedIndex();
+        //calling method... returning string of dates
+        String[] checkOutDates = getCheckOutDates(selectedIndex);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(checkOutDates));
+    }//GEN-LAST:event_checkInComboActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     
     /**
      * @param args the command line arguments
      * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
+     * @throws java.lang.reflect.InvocationTargetException
      */
     
-    public static void main(String args[]) throws IOException {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    public static void main(String args[]) throws IOException, InterruptedException, InvocationTargetException {
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -412,38 +479,36 @@ private String checkOut;
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(customerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(customerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(customerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(customerInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new customerInfo().setVisible(true);
-            }
-        });
+        
+        
+        
+        //</editor-fold>
 
         
-       // String name = customerInfo.getInstance().firstName;
-       // String last = customerInfo.getInstance().lastName;
-      
-    
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new customerInfo().setVisible(true);
+            } 
+        });
+        
+        
+        
+         
+       
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JComboBox<String> checkInCombo;
     private javax.swing.JLabel checkInLabel;
     private javax.swing.JLabel checkOutLabel;
     private java.awt.Button confirmationButton;
-    private javax.swing.JPanel customerInputPanel;
+    private static javax.swing.JPanel customerInputPanel;
     private javax.swing.JLabel emailAddLabel;
-    private javax.swing.JFormattedTextField enterCheckIn;
-    private javax.swing.JFormattedTextField enterCheckOut;
     private javax.swing.JFormattedTextField enterEmailAddress;
     private javax.swing.JFormattedTextField enterFirstName;
     private javax.swing.JFormattedTextField enterGuestNum;
@@ -452,6 +517,7 @@ private String checkOut;
     private javax.swing.JFormattedTextField enterPhoneNumber;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JLabel guestNumLabel;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JFormattedTextField jFormattedTextField7;
     private javax.swing.JLabel lastNameLabel;
