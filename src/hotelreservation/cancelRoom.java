@@ -4,6 +4,21 @@
  */
 package hotelreservation;
 
+import java.io.File;  
+import java.io.FileInputStream;  
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;  
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.poi.ss.usermodel.Cell;  
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;  
+import org.apache.poi.xssf.usermodel.XSSFSheet;  
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;  
+
 /**
  *
  * @author Owner
@@ -13,10 +28,54 @@ public class cancelRoom extends javax.swing.JFrame {
     /**
      * Creates new form cancelRoom
      */
+    private String lastName;
+    private String confirmationNumber;
     public cancelRoom() {
         initComponents();
     }
 
+    public static void readExcelFile(String num, String last) throws FileNotFoundException, IOException{
+        String excelFilePath = "hotel_info.xlsx";
+        File file = new File(excelFilePath);
+        //int number = Integer.parseInt(num);
+        DataFormatter formatter = new DataFormatter();
+        try (FileInputStream excelFile = new FileInputStream(file)) {
+                
+                XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
+                XSSFSheet sheet = workbook.getSheet("Sheet1"); 
+                int lastrow = sheet.getLastRowNum();
+                int done = 0;
+                //loops through each row in col 6 and matches with regristration number
+                /*while (lastrow >= 0 && done == 0){
+                    Row row = sheet.getRow(lastrow);
+                    if (Objects.equals(row.getCell(7).getStringCellValue(), num)){
+                        done = 1;
+                        Cell entry8 = row.createCell(8);
+                        entry8.setCellValue("F");
+                    }
+                    lastrow--;
+                }*/
+                for (int i = 0; i< lastrow; i++){
+                     Cell cell = sheet.getRow(i).getCell(7);
+                     if (Objects.equals(formatter.formatCellValue(cell), num)){
+                         Row row = sheet.getRow(i);
+                         Cell entry8 = row.createCell(8);
+                         entry8.setCellValue("F");
+                     }
+                }
+                if (done == 0){
+                    // regirstation number not found
+                }
+                excelFile.close();
+                
+            try ( //this is what writes/saves the file
+                    FileOutputStream outFile = new FileOutputStream(new File(excelFilePath))) {
+                workbook.write(outFile);
+            }
+                
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,33 +86,33 @@ public class cancelRoom extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        enterConfirmationNumber = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        enterLastName = new javax.swing.JTextField();
+        cancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Confirmation Number:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        enterConfirmationNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                enterConfirmationNumberActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Last Name:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        enterLastName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                enterLastNameActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Cancel Reservation");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cancel.setText("Cancel Reservation");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cancelActionPerformed(evt);
             }
         });
 
@@ -70,11 +129,11 @@ public class cancelRoom extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(enterLastName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterConfirmationNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(216, 216, 216)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(274, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -83,32 +142,42 @@ public class cancelRoom extends javax.swing.JFrame {
                 .addGap(77, 77, 77)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(enterConfirmationNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(enterLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(60, 60, 60)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
-        jButton1.getAccessibleContext().setAccessibleName("");
+        cancel.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void enterConfirmationNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterConfirmationNumberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        //confirmationNumber = enterConfirmationNumber.getText();
+    }//GEN-LAST:event_enterConfirmationNumberActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void enterLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterLastNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+        lastName = enterLastName.getText();
+    }//GEN-LAST:event_enterLastNameActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        confirmationNumber = enterConfirmationNumber.getText();
+        lastName = enterLastName.getText();
+        try {
+            readExcelFile(confirmationNumber, lastName);
+        } catch (IOException ex) {
+            Logger.getLogger(cancelRoom.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_cancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,10 +215,10 @@ public class cancelRoom extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton cancel;
+    private javax.swing.JTextField enterConfirmationNumber;
+    private javax.swing.JTextField enterLastName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
