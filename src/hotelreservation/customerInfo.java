@@ -31,9 +31,6 @@ import javax.swing.JOptionPane;
 public class customerInfo extends javax.swing.JFrame {
 
 int generateNum;
-//private static customerInfo customer = null;
-//for now, entries will be taken as strings
-//next sprint we will some type to int only
 private String firstName;
 private String lastName;
 private String guestNum;
@@ -41,25 +38,21 @@ private String phoneNumber;
 private String emailAddress;
 private String checkIn;
 private String checkOut;
-private int selectedIndex;
+int selectedCheckIn; //mutable variable
+int selectedCheckOut; //mutable variable
         
 
-
-
-    /**
-     * Creates new form customerInfo
-     */
+    /* Constructor */
     public customerInfo() {
         initComponents();
-        
         /*Calling getCheckInDates(), iterating through arrayList to create 
         array to set in check-in comboBox */ 
-        ArrayList checkInDays = getCheckInDates();
-        String[] checkInDaysArray = new String[checkInDays.size()];
-            for(int i = 0; i < checkInDays.size(); i++){
-                checkInDaysArray[i] = checkInDays.get(i).toString() + " ";
-            }
-        checkInCombo.setModel(new javax.swing.DefaultComboBoxModel<>(checkInDaysArray));  
+            ArrayList checkInDays = getCheckInDates();
+            String[] checkInDaysArray = new String[checkInDays.size()];
+                for(int i = 0; i < checkInDays.size(); i++){
+                    checkInDaysArray[i] = checkInDays.get(i).toString() + " ";
+                }
+            checkInCombo.setModel(new javax.swing.DefaultComboBoxModel<>(checkInDaysArray));  
     }
     
     /* Method for Check IN Date list*/
@@ -84,21 +77,21 @@ private int selectedIndex;
        selectedDay + 1. String array of valid check out dates - only up to sunday of
        that week. 
     */
-    public String[] getCheckOutDates(int selectedCheckIn){
+    public void getCheckOutDates(int selectedCheckIn){
         ArrayList validDatesArrayList = new ArrayList();
-        LocalDate validCheckOut = LocalDate.now().plusDays(selectedIndex);
+        LocalDate validCheckOut = LocalDate.now().plusDays(selectedCheckIn);
         LocalDate sunday = validCheckOut.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
             //adding dates to the arrayList
             while(validCheckOut.isBefore(sunday)){
                 validCheckOut = validCheckOut.plusDays(1);
-                validDatesArrayList.add(validCheckOut);
+                validDatesArrayList.add(validCheckOut.format(DateTimeFormatter.ofPattern("MMM dd,yyyy ")));
             }
         String[] validDatesArray = new String[validDatesArrayList.size()];
             //converting arrayList to string[]
             for(int i = 0; i < validDatesArrayList.size(); i++){
                 validDatesArray[i] = validDatesArrayList.get(i).toString() + " ";
-            }
-        return validDatesArray; 
+            }  
+        checkOutCombo.setModel(new javax.swing.DefaultComboBoxModel<>(validDatesArray));
     }
     
     
@@ -182,7 +175,7 @@ private int selectedIndex;
         enterEmailAddress = new javax.swing.JFormattedTextField();
         enterPhoneNumber = new javax.swing.JFormattedTextField();
         checkInCombo = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        checkOutCombo = new javax.swing.JComboBox<>();
 
         jFormattedTextField3.setText("jFormattedTextField1");
         jFormattedTextField3.addActionListener(new java.awt.event.ActionListener() {
@@ -266,9 +259,9 @@ private int selectedIndex;
             }
         });
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        checkOutCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                checkOutComboActionPerformed(evt);
             }
         });
 
@@ -298,16 +291,16 @@ private int selectedIndex;
                                 .addGap(35, 35, 35)
                                 .addComponent(enterInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(customerInputPanelLayout.createSequentialGroup()
-                                .addGap(107, 107, 107)
+                                .addGap(123, 123, 123)
                                 .addComponent(checkInCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkOutLabel)
-                                .addGap(13, 13, 13)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addComponent(checkOutCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(customerInputPanelLayout.createSequentialGroup()
                         .addGap(287, 287, 287)
                         .addComponent(confirmationButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
             .addGroup(customerInputPanelLayout.createSequentialGroup()
                 .addGap(109, 109, 109)
                 .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,7 +351,7 @@ private int selectedIndex;
                         .addComponent(checkInLabel)
                         .addComponent(checkOutLabel)
                         .addComponent(checkInCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(checkOutCombo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(confirmationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
@@ -402,35 +395,33 @@ private int selectedIndex;
         guestNum = enterGuestNum.getText().trim(); 
         phoneNumber = enterPhoneNumber.getText().trim();
         emailAddress = enterEmailAddress.getText().trim();
-        //MISSING:
-        //checkIn
-        //checkOut
         
         //Check for empty fields, else write user info to file
         if(firstName.isEmpty() || lastName.isEmpty() || guestNum.isEmpty() 
-           || phoneNumber.isEmpty() || emailAddress.isEmpty()){
+           || phoneNumber.isEmpty() || emailAddress.isEmpty() || checkOutCombo.getSelectedIndex() == -1){
             JOptionPane.showMessageDialog(null, "Please enter all text fields!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         else{
-        try {
-            writeToFile(firstName,lastName, guestNum, phoneNumber,emailAddress,checkIn,checkOut);
+            try {
+                writeToFile(firstName,lastName, guestNum, phoneNumber,emailAddress,checkIn,checkOut);
             
-            //generate random number between 1 and 10
-            //send number to confirmation page to display
-            java.util.Random x = new java.util.Random();
-            int numGenerate = 1 + x.nextInt(10);
-            String info = enterFirstName.getText();
+                //generate random number between 1 and 10
+                //send number to confirmation page to display
+                java.util.Random x = new java.util.Random();
+                int numGenerate = 1 + x.nextInt(10);
+                String info = enterFirstName.getText();
             
-            //linking confirmation page, dependent
-            new confirmation(info, numGenerate).setVisible(true);
-            this.setVisible(false);
+                //linking confirmation page, dependent
+                new confirmation(info, numGenerate).setVisible(true);
+                this.setVisible(false);
         
             
-        } catch (IOException ex) {
-            Logger.getLogger(customerInfo.class.getName()).log(Level.SEVERE, null, ex);
-          }
+            } catch (IOException ex) {
+                Logger.getLogger(customerInfo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+    
     /*links this panel to hotelRoom via button click
     confirmation confirm = new confirmation();
     confirm.show();
@@ -456,15 +447,23 @@ private int selectedIndex;
 
     private void checkInComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInComboActionPerformed
         // TODO add your handling code here:
-        selectedIndex = checkInCombo.getSelectedIndex();
-        //calling method... returning string of dates
-        String[] checkOutDates = getCheckOutDates(selectedIndex);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(checkOutDates));
+        //checkIn variable is being assigned to date selected on the combobox
+            selectedCheckIn = checkInCombo.getSelectedIndex();
+            checkIn = checkInCombo.getItemAt(selectedCheckIn);
+        /*Calling void method that will create and display checkOUTDates in combobox*/
+            getCheckOutDates(selectedCheckIn);
+        /*if user does not select a checkOUT date, the system will automatically 
+        use the displayed date*/
+            selectedCheckOut = checkOutCombo.getSelectedIndex();
+            checkOut = checkOutCombo.getItemAt(selectedCheckOut);
     }//GEN-LAST:event_checkInComboActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void checkOutComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutComboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        /*checkOut variable is being assigned to date selected on combobox */
+            selectedCheckOut = checkOutCombo.getSelectedIndex();
+            checkOut = checkOutCombo.getItemAt(selectedCheckOut);
+    }//GEN-LAST:event_checkOutComboActionPerformed
 
     
     /**
@@ -509,6 +508,7 @@ private int selectedIndex;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JComboBox<String> checkInCombo;
     private javax.swing.JLabel checkInLabel;
+    private javax.swing.JComboBox<String> checkOutCombo;
     private javax.swing.JLabel checkOutLabel;
     private java.awt.Button confirmationButton;
     private static javax.swing.JPanel customerInputPanel;
@@ -521,7 +521,6 @@ private int selectedIndex;
     private javax.swing.JFormattedTextField enterPhoneNumber;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JLabel guestNumLabel;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JFormattedTextField jFormattedTextField7;
     private javax.swing.JLabel lastNameLabel;
