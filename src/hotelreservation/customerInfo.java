@@ -22,7 +22,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.swing.JOptionPane;
+import org.apache.poi.ss.usermodel.DataFormatter;
 
 /**
  *
@@ -109,6 +111,7 @@ int selectedCheckOut; //mutable variable
                 int lastRow = sheet.getLastRowNum();
                 //last row needs to be incremted, otherwise will overwrite
                 lastRow++;
+                //String stringRow = String.valueOf(lastRow);
                 Row row = sheet.createRow(lastRow);
                 //Customer info
                 //for next sprint: create a for loop or manually add all fields
@@ -134,8 +137,7 @@ int selectedCheckOut; //mutable variable
                 entry6.setCellValue(outDate);
                 
                 Cell entry7 = row.createCell(7);
-                String stringRow = String.valueOf(lastRow);
-                entry7.setCellValue(stringRow);
+                entry7.setCellValue(lastRow);
                 
                 excelFile.close();
                 
@@ -145,6 +147,27 @@ int selectedCheckOut; //mutable variable
                 outFile.close();
                 
             }
+    }
+     public static int getLastRow() throws FileNotFoundException, IOException{
+        String excelFilePath = "hotel_info.xlsx";
+        File file = new File(excelFilePath);
+        //int number = Integer.parseInt(num);
+        int lastrow;
+        //DataFormatter formatter = new DataFormatter();
+        try (FileInputStream excelFile = new FileInputStream(file)) {
+                
+                XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
+                XSSFSheet sheet = workbook.getSheet("Sheet1"); 
+                lastrow = sheet.getLastRowNum();
+                excelFile.close();
+                
+            try ( //this is what writes/saves the file
+                    FileOutputStream outFile = new FileOutputStream(new File(excelFilePath))) {
+                workbook.write(outFile);
+            }
+                
+        }
+        return lastrow;
     }
         /**
          * This method is called from within the constructor to initialize the form.
@@ -405,7 +428,7 @@ int selectedCheckOut; //mutable variable
         else{
             try {
                 writeToFile(firstName,lastName, guestNum, phoneNumber,emailAddress,checkIn,checkOut);
-            
+                int confirmationNum = getLastRow();
                 //generate random number between 1 and 10
                 //send number to confirmation page to display
                 java.util.Random x = new java.util.Random();
@@ -413,7 +436,7 @@ int selectedCheckOut; //mutable variable
                 String info = enterFirstName.getText();
             
                 //linking confirmation page, dependent
-                new confirmation(info, numGenerate).setVisible(true);
+                new confirmation(info, confirmationNum).setVisible(true);
                 this.setVisible(false);
         
             
