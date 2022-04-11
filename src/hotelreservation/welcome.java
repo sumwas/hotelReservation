@@ -5,12 +5,24 @@
  */
 package hotelreservation;
 
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 12137
  */
-public class welcome extends javax.swing.JFrame {
 
+
+public class welcome extends javax.swing.JFrame {
+String email;
+String outMsg;
     /**
      * Creates new form welcome
      */
@@ -31,6 +43,8 @@ public class welcome extends javax.swing.JFrame {
         welcomeLabel = new javax.swing.JLabel();
         hotelIMG = new javax.swing.JLabel();
         reservationButton1 = new java.awt.Button();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -61,6 +75,20 @@ public class welcome extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Sign Up");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Log In");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,9 +103,13 @@ public class welcome extends javax.swing.JFrame {
                         .addComponent(welcomeLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(123, 123, 123)
-                        .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(43, 43, 43)
-                        .addComponent(reservationButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(reservationButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -90,12 +122,108 @@ public class welcome extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reservationButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void registerCustomer() throws IOException{
+      FileWriter fw = new FileWriter("membershipHotel.txt",true);
+      PrintWriter out = new PrintWriter(fw);
+   
+      
+      
+      email = JOptionPane.showInputDialog("Enter your email: "); 
+      out.println(email);
+   
+      // Close the file.
+      out.close();
+      
+      outMsg = "You are all done!"; //welcome with the character pressed
+      JOptionPane.showMessageDialog(null,outMsg);
+}
+    
+    private void logIn() throws IOException{
+        
+       // boolean win = false;
+      boolean done = false;
+      
+      
+      Scanner sc1;
+        sc1 = new Scanner(System.in);
+      
+      String input = null;
+     
+      email = JOptionPane.showInputDialog("Enter your email: ");
+      
+      boolean flag = false;
+      int count = 0;
+      //System.out.println("Contents of the line");
+      //Reading the contents of the file
+      
+      //change the directory of the flat text
+      Scanner sc2 = new Scanner(new FileInputStream("membershipHotel.txt"));
+      
+      while(sc2.hasNextLine()) {
+         String line = sc2.nextLine();
+         System.out.println(line);
+         
+         if(line.contains(email)) {
+            flag = true;
+            count = count+1;
+         }
+      }
+      
+      if(flag) {
+         //System.out.println("You are a member!");
+         JOptionPane.showMessageDialog(null, "You are a member!");
+         JOptionPane.showMessageDialog(null, "You get to choose a REWARD!");
+         String[] buttons = {"Massage Coupon","10% discount","An Upgrade","A towel"};// the buttons' names (parameter)
+         int cont = JOptionPane.showOptionDialog(null,"Select a Reward", "Options of Rewards:", 0, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[0]); 
+         //System.out.println("Number of occurrences is: "+count);
+         outMsg = "You Chose " + buttons[cont] +". Yay!"; //welcome with the character pressed
+         JOptionPane.showMessageDialog(null,outMsg);
+         JOptionPane.showMessageDialog(null, "Thank you for being a member!");
+         
+      } else {
+         JOptionPane.showMessageDialog(null, "You are nor a member "); 
+         //System.out.println("You are nor a member, Do you want to become one?");
+         int option = JOptionPane.showConfirmDialog(null, "Do you want to become one?"); // using will press "yes" or " no" or "cancel"
+         
+         switch (option){
+            case 0: 
+               JOptionPane.showMessageDialog(null, "Great! Let's get you register"); 
+               FileWriter fw = new FileWriter("membershipHotel.txt",true);
+               PrintWriter out = new PrintWriter(fw);
+               email = JOptionPane.showInputDialog("Enter your email: "); 
+               out.println(email);
+            
+            // Close the file.
+               out.close();
+            
+               outMsg = "You are all done!"; //welcome with the character pressed
+               JOptionPane.showMessageDialog(null,outMsg);
+               
+               break;
+            case 1: 
+               JOptionPane.showMessageDialog(null, "Ok, thank you for being a customer! You can continue as a guest.");
+               done = true;
+               break;
+            default: 
+               JOptionPane.showMessageDialog(null, "Thank you!");
+         }
+         
+      }
+   }
+
+  
+    
+   
     private void reservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationButtonActionPerformed
         // TODO add your handling code here:
         hotelRooms rooms = new hotelRooms();
@@ -114,6 +242,24 @@ public class welcome extends javax.swing.JFrame {
         new cancelRoom().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_reservationButton1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            registerCustomer();
+        } catch (IOException ex) {
+            Logger.getLogger(welcome.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try{
+        logIn();
+        } catch (IOException ex) {
+            Logger.getLogger(welcome.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,6 +298,8 @@ public class welcome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel hotelIMG;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private java.awt.Button reservationButton;
     private java.awt.Button reservationButton1;
     private javax.swing.JLabel welcomeLabel;
