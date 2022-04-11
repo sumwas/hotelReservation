@@ -140,6 +140,10 @@ private int selectedIndex;
                 Cell entry6 = row.createCell(6);
                 entry6.setCellValue(outDate);
                 
+                Cell entry7 = row.createCell(7);
+                String stringRow = String.valueOf(lastRow);
+                entry7.setCellValue(stringRow);
+                
                 excelFile.close();
                 
                 //this is what writes/saves the file
