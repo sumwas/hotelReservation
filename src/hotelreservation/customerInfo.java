@@ -32,7 +32,7 @@ import org.apache.poi.ss.usermodel.DataFormatter;
  */
 public class customerInfo extends javax.swing.JFrame {
 
-int generateNum;
+
 private String firstName;
 private String lastName;
 private String guestNum;
@@ -42,7 +42,7 @@ private String checkIn;
 private String checkOut;
 int selectedCheckIn; //mutable variable
 int selectedCheckOut; //mutable variable
-        
+  int confirmationNum; //mutable variable     
 
     /* Constructor */
     public customerInfo() {
@@ -436,7 +436,7 @@ int selectedCheckOut; //mutable variable
                 String info = enterFirstName.getText();
             
                 //linking confirmation page, dependent
-                new confirmation(info, confirmationNum).setVisible(true);
+                new confirmation(firstName, lastName, guestNum, phoneNumber, emailAddress, confirmationNum).setVisible(true);
                 this.setVisible(false);
         
             
