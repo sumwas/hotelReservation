@@ -11,6 +11,8 @@ package hotelreservation;
  */
 public class confirmation extends javax.swing.JFrame {
 
+    private int confirmationNum;
+
     /**
      * Creates new form confirmation
      * @param first
@@ -36,8 +38,8 @@ public class confirmation extends javax.swing.JFrame {
         phoneHolder.setText(phone);
         emailHolder.setText(email);
         resNumber.setText(number + "");
-     //   checkInHolder.setText(checkIn);
-       // checkOutHolder.setText(checkOut);
+      //cardHolder.setText(cardNumber);
+       //checkOutHolder.setText(checkOut);
     }
 
     private confirmation() {
@@ -58,7 +60,6 @@ public class confirmation extends javax.swing.JFrame {
     private void initComponents() {
 
         confirmationLabel = new javax.swing.JLabel();
-        exitMessageLabel = new javax.swing.JLabel();
         resNumber = new javax.swing.JLabel();
         holder = new javax.swing.JLabel();
         Holderlabel = new javax.swing.JLabel();
@@ -74,9 +75,6 @@ public class confirmation extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         confirmationLabel.setText("Your reservation is complete. Here is your reservation number:");
-
-        exitMessageLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        exitMessageLabel.setText("See you soon!");
 
         resNumber.setText("resNumber");
 
@@ -105,37 +103,39 @@ public class confirmation extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(175, 175, 175)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(holder)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(Holderlabel)
+                            .addComponent(holder))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(phoneHolder)
+                                .addComponent(emailHolder))
+                            .addComponent(guestHolder)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lastNameHolder, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(nameHolder))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(resNumber))
-                    .addComponent(Holderlabel)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addContainerGap(249, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameHolder)
-                    .addComponent(exitMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lastNameHolder)
-                    .addComponent(guestHolder)
-                    .addComponent(phoneHolder)
-                    .addComponent(emailHolder))
-                .addGap(270, 270, 270))
+                        .addGap(7, 7, 7)
+                        .addComponent(resNumber)
+                        .addGap(0, 53, Short.MAX_VALUE)))
+                .addGap(211, 211, 211))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(resNumber))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(99, 99, 99)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(holder)
                     .addComponent(nameHolder))
@@ -147,7 +147,7 @@ public class confirmation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(guestHolder))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(phoneHolder))
@@ -155,9 +155,7 @@ public class confirmation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(emailHolder))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                .addComponent(exitMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(147, 147, 147))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,7 +200,6 @@ public class confirmation extends javax.swing.JFrame {
     private javax.swing.JLabel Holderlabel;
     private javax.swing.JLabel confirmationLabel;
     private javax.swing.JLabel emailHolder;
-    private javax.swing.JLabel exitMessageLabel;
     private javax.swing.JLabel guestHolder;
     private javax.swing.JLabel holder;
     private javax.swing.JLabel jLabel1;
