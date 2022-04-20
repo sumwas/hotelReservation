@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.Cell;  
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;  
@@ -61,10 +63,15 @@ public class cancelRoom extends javax.swing.JFrame {
                          Row row = sheet.getRow(i);
                          Cell entry8 = row.createCell(8);
                          entry8.setCellValue("F");
+                         JFrame jFrame = new JFrame();
+                         JOptionPane.showMessageDialog(jFrame, "Your reservation was canceled");
+                         done = 1;
                      }
                 }
                 if (done == 0){
                     // regirstation number not found
+                    JFrame jFrame = new JFrame();
+                    JOptionPane.showMessageDialog(jFrame, "No reservation found");
                 }
                 excelFile.close();
                 
