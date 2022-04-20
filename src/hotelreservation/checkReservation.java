@@ -49,6 +49,7 @@ public class checkReservation extends javax.swing.JFrame {
                 int done = 0;
                 for (int i = 0; i< lastrow; i++){
                      Cell cell_confirm_num = sheet.getRow(i).getCell(7);
+                     Cell cell_first_name = sheet.getRow(i).getCell(1);
                      if (Objects.equals(formatter.formatCellValue(cell_confirm_num), num)){
                          Cell cell_reserve = sheet.getRow(i).getCell(8);
                          if (Objects.equals(formatter.formatCellValue(cell_reserve), "F")) {
@@ -59,6 +60,11 @@ public class checkReservation extends javax.swing.JFrame {
                          else {
                              //yes reservation 
                              //pull up info 
+                             //pull up check reservation info page 
+                             //String info = cell_info.getStringCellValue();
+                             JFrame jFrame = new JFrame();
+                             JOptionPane.showMessageDialog(jFrame, num);
+                             
                          }
                          done = 1;
                          
@@ -66,6 +72,8 @@ public class checkReservation extends javax.swing.JFrame {
                 }
                 if (done == 0){
                     // regirstation number not found
+                     JFrame jFrame = new JFrame();
+                     JOptionPane.showMessageDialog(jFrame, "No reservation found");
                 }
                 excelFile.close();
                 
@@ -77,6 +85,7 @@ public class checkReservation extends javax.swing.JFrame {
         }
         
     }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
