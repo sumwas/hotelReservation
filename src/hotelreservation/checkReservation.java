@@ -13,30 +13,30 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.Cell;  
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;  
 import org.apache.poi.xssf.usermodel.XSSFSheet;  
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;  
+import javax.swing.*;
 
 /**
  *
  * @author Owner
  */
-public class cancelRoom extends javax.swing.JFrame {
+public class checkReservation extends javax.swing.JFrame {
 
     /**
-     * Creates new form cancelRoom
+     * Creates new form confirmReservation
      */
     private String lastName;
     private String confirmationNumber;
-    public cancelRoom() {
+    
+    public checkReservation() {
         initComponents();
     }
 
-    public static void readExcelFile(String num, String last) throws FileNotFoundException, IOException{
+        public static void readExcelFile(String num, String last) throws FileNotFoundException, IOException{
         String excelFilePath = "hotel_info.xlsx";
         File file = new File(excelFilePath);
         //int number = Integer.parseInt(num);
@@ -47,31 +47,33 @@ public class cancelRoom extends javax.swing.JFrame {
                 XSSFSheet sheet = workbook.getSheet("Sheet1"); 
                 int lastrow = sheet.getLastRowNum();
                 int done = 0;
-                //loops through each row in col 6 and matches with regristration number
-                /*while (lastrow >= 0 && done == 0){
-                    Row row = sheet.getRow(lastrow);
-                    if (Objects.equals(row.getCell(7).getStringCellValue(), num)){
-                        done = 1;
-                        Cell entry8 = row.createCell(8);
-                        entry8.setCellValue("F");
-                    }
-                    lastrow--;
-                }*/
                 for (int i = 0; i< lastrow; i++){
-                     Cell cell = sheet.getRow(i).getCell(7);
-                     if (Objects.equals(formatter.formatCellValue(cell), num)){
-                         Row row = sheet.getRow(i);
-                         Cell entry8 = row.createCell(8);
-                         entry8.setCellValue("F");
-                         JFrame jFrame = new JFrame();
-                         JOptionPane.showMessageDialog(jFrame, "Your reservation was canceled");
+                     Cell cell_confirm_num = sheet.getRow(i).getCell(7);
+                     Cell cell_first_name = sheet.getRow(i).getCell(1);
+                     if (Objects.equals(formatter.formatCellValue(cell_confirm_num), num)){
+                         Cell cell_reserve = sheet.getRow(i).getCell(8);
+                         if (Objects.equals(formatter.formatCellValue(cell_reserve), "F")) {
+                             //no reservation 
+                             JFrame jFrame = new JFrame();
+                             JOptionPane.showMessageDialog(jFrame, "Your reservation was canceled");
+                         }
+                         else {
+                             //yes reservation 
+                             //pull up info 
+                             //pull up check reservation info page 
+                             //String info = cell_info.getStringCellValue();
+                             JFrame jFrame = new JFrame();
+                             JOptionPane.showMessageDialog(jFrame, num);
+                             
+                         }
                          done = 1;
+                         
                      }
                 }
                 if (done == 0){
                     // regirstation number not found
-                    JFrame jFrame = new JFrame();
-                    JOptionPane.showMessageDialog(jFrame, "No reservation found");
+                     JFrame jFrame = new JFrame();
+                     JOptionPane.showMessageDialog(jFrame, "No reservation found");
                 }
                 excelFile.close();
                 
@@ -83,6 +85,7 @@ public class cancelRoom extends javax.swing.JFrame {
         }
         
     }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,13 +95,26 @@ public class cancelRoom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        enterLastName = new javax.swing.JTextField();
+        cancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         enterConfirmationNumber = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        enterLastName = new javax.swing.JTextField();
-        cancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        enterLastName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterLastNameActionPerformed(evt);
+            }
+        });
+
+        cancel.setText("Check Reservation");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Confirmation Number:");
 
@@ -109,19 +125,6 @@ public class cancelRoom extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Last Name:");
-
-        enterLastName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enterLastNameActionPerformed(evt);
-            }
-        });
-
-        cancel.setText("Cancel Reservation");
-        cancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,7 +144,7 @@ public class cancelRoom extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(216, 216, 216)
                         .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addContainerGap(267, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,18 +159,11 @@ public class cancelRoom extends javax.swing.JFrame {
                     .addComponent(enterLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(60, 60, 60)
                 .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
-
-        cancel.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void enterConfirmationNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterConfirmationNumberActionPerformed
-        // TODO add your handling code here:
-        //confirmationNumber = enterConfirmationNumber.getText();
-    }//GEN-LAST:event_enterConfirmationNumberActionPerformed
 
     private void enterLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterLastNameActionPerformed
         // TODO add your handling code here:
@@ -183,8 +179,13 @@ public class cancelRoom extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(cancelRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void enterConfirmationNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterConfirmationNumberActionPerformed
+        // TODO add your handling code here:
+        //confirmationNumber = enterConfirmationNumber.getText();
+    }//GEN-LAST:event_enterConfirmationNumberActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,20 +204,21 @@ public class cancelRoom extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(cancelRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(checkReservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(cancelRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(checkReservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(cancelRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(checkReservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(cancelRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(checkReservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new cancelRoom().setVisible(true);
+                new checkReservation().setVisible(true);
             }
         });
     }
