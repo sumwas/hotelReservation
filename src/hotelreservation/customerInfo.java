@@ -5,6 +5,7 @@
  */
 package hotelreservation;
 
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -314,16 +315,16 @@ int selectedCheckOut; //mutable variable
                                 .addGap(35, 35, 35)
                                 .addComponent(enterInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(customerInputPanelLayout.createSequentialGroup()
-                                .addGap(123, 123, 123)
+                                .addGap(107, 107, 107)
                                 .addComponent(checkInCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(26, 26, 26)
                                 .addComponent(checkOutLabel)
-                                .addGap(18, 18, 18)
+                                .addGap(13, 13, 13)
                                 .addComponent(checkOutCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(customerInputPanelLayout.createSequentialGroup()
                         .addGap(287, 287, 287)
                         .addComponent(confirmationButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
             .addGroup(customerInputPanelLayout.createSequentialGroup()
                 .addGap(109, 109, 109)
                 .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,9 +432,9 @@ int selectedCheckOut; //mutable variable
                 int confirmationNum = getLastRow();
                 //generate random number between 1 and 10
                 //send number to confirmation page to display
-                java.util.Random x = new java.util.Random();
-                int numGenerate = 1 + x.nextInt(10);
-                String info = enterFirstName.getText();
+              //  java.util.Random x = new java.util.Random();
+               // int numGenerate = 1 + x.nextInt(10);
+               // String info = enterFirstName.getText();
             
                 //linking confirmation page, dependent
                 new confirmation(firstName, lastName, guestNum, phoneNumber, emailAddress, confirmationNum).setVisible(true);
@@ -528,6 +529,7 @@ int selectedCheckOut; //mutable variable
          
        
     }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JComboBox<String> checkInCombo;
     private javax.swing.JLabel checkInLabel;
