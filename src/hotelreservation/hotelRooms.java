@@ -5,11 +5,13 @@
  */
 package hotelreservation;
 
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,7 +21,7 @@ public class hotelRooms extends javax.swing.JFrame {
 
 //attributes
 int selectedCheckIn;
-
+String outMsg;
     
     /**
      * Creates new form hotelRooms
@@ -92,13 +94,13 @@ int selectedCheckIn;
         kingBalconyIMG = new javax.swing.JLabel();
         nextButton = new java.awt.Button();
         doubleBedsSelected = new javax.swing.JRadioButton();
-        kingBalconySelected = new javax.swing.JRadioButton();
         KingLakeSelected = new javax.swing.JRadioButton();
         checkInLabel = new javax.swing.JLabel();
         selectRoomLabel1 = new javax.swing.JLabel();
         checkOutCombo = new javax.swing.JComboBox<>();
         checkOutLabel = new javax.swing.JLabel();
         checkInCombo = new javax.swing.JComboBox<>();
+        kingbedwithbalcony = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,14 +127,6 @@ int selectedCheckIn;
         doubleBedsSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 doubleBedsSelectedActionPerformed(evt);
-            }
-        });
-
-        roomSelection.add(kingBalconySelected);
-        kingBalconySelected.setText("King Bed with Balcony");
-        kingBalconySelected.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kingBalconySelectedActionPerformed(evt);
             }
         });
 
@@ -163,6 +157,14 @@ int selectedCheckIn;
             }
         });
 
+        roomSelection.add(kingbedwithbalcony);
+        kingbedwithbalcony.setText("King bed with balcony");
+        kingbedwithbalcony.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kingbedwithbalconyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,7 +178,6 @@ int selectedCheckIn;
                 .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(doubleBedsSelected, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(kingBalconySelected, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(KingLakeSelected, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(16, 16, 16)
@@ -191,8 +192,9 @@ int selectedCheckIn;
                             .addComponent(checkOutLabel))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(checkOutCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkInCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(checkOutCombo, 0, 127, Short.MAX_VALUE)
+                            .addComponent(checkInCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(kingbedwithbalcony, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -207,26 +209,26 @@ int selectedCheckIn;
                     .addComponent(doubleBedIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(doubleBedsSelected)
-                        .addGap(22, 22, 22)
+                        .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkInLabel)
                             .addComponent(checkInCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(kingBalconyIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(kingBalconySelected)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkOutLabel)
-                            .addComponent(checkOutCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(checkOutCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kingbedwithbalcony)
+                            .addComponent(kingBalconyIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(kingLakeIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(95, Short.MAX_VALUE))
+                        .addContainerGap(86, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(KingLakeSelected)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -254,6 +256,29 @@ int selectedCheckIn;
                searching for available checkIn dates
                based on this checkIn date, we can determine valid checkOut date
             */
+            outMsg = "$50"; //welcome with the character pressed
+      JOptionPane.showMessageDialog(null,outMsg);
+      int option = JOptionPane.showConfirmDialog(null, "Do you want room?"); // using will press "yes" or " no" or "cancel"
+         
+         switch (option){
+            case 0: 
+               JOptionPane.showMessageDialog(null, "Great! "); 
+               
+               //excel
+            
+               outMsg = "You are all done!"; //welcome with the character pressed
+               JOptionPane.showMessageDialog(null,outMsg);
+               
+               break;
+            case 1: 
+               JOptionPane.showMessageDialog(null, "Ok, please choose another");
+              // done = true;
+               break;
+            default: 
+               JOptionPane.showMessageDialog(null, "Thank you!");
+      
+    }
+      
     }//GEN-LAST:event_doubleBedsSelectedActionPerformed
 
     private void KingLakeSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KingLakeSelectedActionPerformed
@@ -265,19 +290,32 @@ int selectedCheckIn;
                searching for available checkIn dates
                based on this checkIn date, we can determine valid checkOut date
             */
+            outMsg = "$150"; //welcome with the character pressed
+      JOptionPane.showMessageDialog(null,outMsg);
+      
+      //JOptionPane.showMessageDialog(null, "Do you want this room? "); 
+         //System.out.println("You are nor a member, Do you want to become one?");
+         int option = JOptionPane.showConfirmDialog(null, "Do you want room?"); // using will press "yes" or " no" or "cancel"
+         
+         switch (option){
+            case 0: 
+               JOptionPane.showMessageDialog(null, "Great! "); 
+               
+               //excel
+            
+               outMsg = "You are all done!"; //welcome with the character pressed
+               JOptionPane.showMessageDialog(null,outMsg);
+               
+               break;
+            case 1: 
+               JOptionPane.showMessageDialog(null, "Ok, please choose another");
+              // done = true;
+               break;
+            default: 
+               JOptionPane.showMessageDialog(null, "Thank you!");
+      
     }//GEN-LAST:event_KingLakeSelectedActionPerformed
-
-    private void kingBalconySelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kingBalconySelectedActionPerformed
-        // TODO add your handling code here:
-        //room type: 2 (rows/index 6-10)
-        //roomType = 2... 
-        //search(roomType)... returns available dates
-            /* search method will loops through Monday - Sunday row index
-               searching for available checkIn dates
-               based on this checkIn date, we can determine valid checkOut date
-            */
-    }//GEN-LAST:event_kingBalconySelectedActionPerformed
-
+    }
     private void checkOutComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutComboActionPerformed
         // TODO add your handling code here:
         /*checkOut variable is being assigned to date selected on combobox */
@@ -298,6 +336,33 @@ int selectedCheckIn;
             int selectedCheckOut = checkOutCombo.getSelectedIndex();
             String checkOut = checkOutCombo.getItemAt(selectedCheckOut);
     }//GEN-LAST:event_checkInComboActionPerformed
+
+    private void kingbedwithbalconyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kingbedwithbalconyActionPerformed
+        // TODO add your handling code here:
+        outMsg = "$100"; //welcome with the character pressed
+      JOptionPane.showMessageDialog(null,outMsg);
+      int option = JOptionPane.showConfirmDialog(null, "Do you want room?"); // using will press "yes" or " no" or "cancel"
+         
+         switch (option){
+            case 0: 
+               JOptionPane.showMessageDialog(null, "Great! "); 
+               
+               //excel
+            
+               outMsg = "You are all done!"; //welcome with the character pressed
+               JOptionPane.showMessageDialog(null,outMsg);
+               
+               break;
+            case 1: 
+               JOptionPane.showMessageDialog(null, "Ok, please choose another");
+              // done = true;
+               break;
+            default: 
+               JOptionPane.showMessageDialog(null, "Thank you!");
+      
+    }
+      
+    }//GEN-LAST:event_kingbedwithbalconyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,8 +408,8 @@ int selectedCheckIn;
     private javax.swing.JLabel doubleBedIMG;
     private javax.swing.JRadioButton doubleBedsSelected;
     private javax.swing.JLabel kingBalconyIMG;
-    private javax.swing.JRadioButton kingBalconySelected;
     private javax.swing.JLabel kingLakeIMG;
+    private javax.swing.JRadioButton kingbedwithbalcony;
     private java.awt.Button nextButton;
     private javax.swing.ButtonGroup roomSelection;
     private javax.swing.JLabel selectRoomLabel;
