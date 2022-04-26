@@ -9,10 +9,16 @@ package hotelreservation;
  *
  * @author 12137
  */
+
+/*
+Public Class Confirmation
+April 8, 2022
+Lissett Laguna
+The following includes the parameter tags and the constructor to receive the data for first name, last name, guest number, phone number, email, and confirmation number.
+These values were received through the customer input, and the reservation number was generated through the push of the button on the customerInfo page
+We wanted to take the customer input and display it right away since it would be the same information being put into the excel file anyways, this was done for the sake of keeping things more simple for the time being
+*/
 public class confirmation extends javax.swing.JFrame {
-
-    private int confirmationNum;
-
     /**
      * Creates new form confirmation
      * @param first
@@ -20,16 +26,12 @@ public class confirmation extends javax.swing.JFrame {
      * @param guest
      * @param phone
      * @param email
-     * @param info
      * @param number
      */
    // public confirmation() {
      //   initComponents();
     //}
-    
-
-
-             
+        //information will be set to the jlabel it is assigned     
         public confirmation(String first, String last, String guest, String phone, String email, int number){
         initComponents();
         nameHolder.setText(first);
@@ -71,8 +73,10 @@ public class confirmation extends javax.swing.JFrame {
         guestHolder = new javax.swing.JLabel();
         phoneHolder = new javax.swing.JLabel();
         emailHolder = new javax.swing.JLabel();
+        exitMessageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(700, 500));
 
         confirmationLabel.setText("Your reservation is complete. Here is your reservation number:");
 
@@ -98,35 +102,45 @@ public class confirmation extends javax.swing.JFrame {
 
         emailHolder.setText("jLabel10");
 
+        exitMessageLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        exitMessageLabel.setText("See You Soon!");
+        exitMessageLabel.setMaximumSize(new java.awt.Dimension(151, 29));
+        exitMessageLabel.setMinimumSize(new java.awt.Dimension(151, 29));
+        exitMessageLabel.setPreferredSize(new java.awt.Dimension(151, 29));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(175, 175, 175)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(Holderlabel)
-                            .addComponent(holder))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(phoneHolder)
-                                .addComponent(emailHolder))
-                            .addComponent(guestHolder)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lastNameHolder, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(nameHolder))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1)
+                                    .addComponent(Holderlabel)
+                                    .addComponent(holder))
+                                .addGap(159, 159, 159)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(phoneHolder)
+                                        .addComponent(emailHolder))
+                                    .addComponent(guestHolder)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lastNameHolder, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(nameHolder))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
+                                .addComponent(resNumber))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(resNumber)
-                        .addGap(0, 53, Short.MAX_VALUE)))
-                .addGap(211, 211, 211))
+                        .addGap(202, 202, 202)
+                        .addComponent(exitMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +149,7 @@ public class confirmation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(resNumber))
-                .addGap(99, 99, 99)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(holder)
                     .addComponent(nameHolder))
@@ -155,7 +169,9 @@ public class confirmation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(emailHolder))
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addComponent(exitMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,6 +216,7 @@ public class confirmation extends javax.swing.JFrame {
     private javax.swing.JLabel Holderlabel;
     private javax.swing.JLabel confirmationLabel;
     private javax.swing.JLabel emailHolder;
+    private javax.swing.JLabel exitMessageLabel;
     private javax.swing.JLabel guestHolder;
     private javax.swing.JLabel holder;
     private javax.swing.JLabel jLabel1;
