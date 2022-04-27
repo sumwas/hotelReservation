@@ -23,7 +23,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
- * @author Owner
+ * @author Summayah Waseem
+ * Public Class Cancel Room
+ * User interface has 2 text fields for the user to input their last name and their confirmation number. This class
+ * takes the confirmationNumber given to the user and uses it to find the users information in the hotel_info excel
+ * sheet. It matches the confirmation number inside the excel sheet and then writes in "F" in the 8th column for the
+ * corresponding row.
+ * Imports apache poi libraries to help handle, read, and write the excel sheet. to learn more: https://poi.apache.org/
+ * 
  */
 public class cancelRoom extends javax.swing.JFrame {
 
@@ -35,7 +42,16 @@ public class cancelRoom extends javax.swing.JFrame {
     public cancelRoom() {
         initComponents();
     }
-
+    
+    /**
+     * readExcelFile
+     * @param num
+     * @param last
+     * @throws FileNotFoundException
+     * @throws IOException 
+     * takes confirmation number and last name, searches excel file hotel_info and writes F if a match was found 
+     * displays a message accordingly
+     */
     public static void readExcelFile(String num, String last) throws FileNotFoundException, IOException{
         String excelFilePath = "hotel_info.xlsx";
         File file = new File(excelFilePath);
@@ -176,6 +192,10 @@ public class cancelRoom extends javax.swing.JFrame {
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         // TODO add your handling code here:
+        /**
+         * gets confirmation number and last name 
+         * calls readExcelFile
+         */
         confirmationNumber = enterConfirmationNumber.getText();
         lastName = enterLastName.getText();
         try {
