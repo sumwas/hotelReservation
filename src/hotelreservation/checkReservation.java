@@ -36,6 +36,9 @@ public class checkReservation extends javax.swing.JFrame {
     private String lastName;
     private String confirmationNumber;
     
+    /**
+     *
+     */
     public checkReservation() {
         initComponents();
     }
