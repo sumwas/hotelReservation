@@ -45,6 +45,7 @@ String outMsg;
         reservationButton1 = new java.awt.Button();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -89,6 +90,8 @@ String outMsg;
             }
         });
 
+        jLabel1.setText("To get Rewards: Sign In or Log in");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,14 +105,21 @@ String outMsg;
                         .addGap(282, 282, 282)
                         .addComponent(welcomeLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(123, 123, 123)
+                                .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)))
                         .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(reservationButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(reservationButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(267, 267, 267)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -122,10 +132,12 @@ String outMsg;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reservationButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
         );
 
@@ -133,11 +145,10 @@ String outMsg;
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerCustomer() throws IOException{
+        //The customer register with their email 
       FileWriter fw = new FileWriter("membershipHotel.txt",true);
       PrintWriter out = new PrintWriter(fw);
    
-      
-      
       email = JOptionPane.showInputDialog("Enter your email: "); 
       out.println(email);
    
@@ -148,14 +159,16 @@ String outMsg;
       JOptionPane.showMessageDialog(null,outMsg);
 }
     
+    //the method for the customer to be able to enter the email 
+    //if email is found in the file text, then the customer is able to pick 
+    //a reward 
     private void logIn() throws IOException{
         
        // boolean win = false;
       boolean done = false;
       
-      
       Scanner sc1;
-        sc1 = new Scanner(System.in);
+      sc1 = new Scanner(System.in);
       
       String input = null;
      
@@ -163,12 +176,12 @@ String outMsg;
       
       boolean flag = false;
       int count = 0;
-      //System.out.println("Contents of the line");
-      //Reading the contents of the file
       
-      //change the directory of the flat text
+        //directory of the flat text
+        //creating the flat text to keep the customers info
       Scanner sc2 = new Scanner(new FileInputStream("membershipHotel.txt"));
       
+      //Looks in the file if the email is there
       while(sc2.hasNextLine()) {
          String line = sc2.nextLine();
          System.out.println(line);
@@ -196,6 +209,7 @@ String outMsg;
          int option = JOptionPane.showConfirmDialog(null, "Do you want to become one?"); // using will press "yes" or " no" or "cancel"
          
          switch (option){
+             //if the customer says "yes" to register 
             case 0: 
                JOptionPane.showMessageDialog(null, "Great! Let's get you register"); 
                FileWriter fw = new FileWriter("membershipHotel.txt",true);
@@ -205,15 +219,18 @@ String outMsg;
             
             // Close the file.
                out.close();
-            
+               
                outMsg = "You are all done!"; //welcome with the character pressed
                JOptionPane.showMessageDialog(null,outMsg);
-               
                break;
+             
+               //if the customer says "no" to register 
             case 1: 
                JOptionPane.showMessageDialog(null, "Ok, thank you for being a customer! You can continue as a guest.");
                done = true;
                break;
+           
+            //if the person did not choose any options 
             default: 
                JOptionPane.showMessageDialog(null, "Thank you!");
          }
@@ -300,6 +317,7 @@ String outMsg;
     private javax.swing.JLabel hotelIMG;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private java.awt.Button reservationButton;
     private java.awt.Button reservationButton1;
     private javax.swing.JLabel welcomeLabel;
