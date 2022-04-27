@@ -149,6 +149,13 @@ int selectedCheckOut; //mutable variable
                 
             }
     }
+    /**
+     * getLastRow
+     * @return lastrow , the last row in the excel sheet 
+     * @throws FileNotFoundException
+     * @throws IOException 
+     * function to get the last row in the excel
+     */
      public static int getLastRow() throws FileNotFoundException, IOException{
         String excelFilePath = "hotel_info.xlsx";
         File file = new File(excelFilePath);
