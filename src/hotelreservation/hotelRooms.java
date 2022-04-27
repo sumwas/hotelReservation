@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  Provide a complete summary for each module/class header: include 
 Module name or Class name in the Design:  hotelRooms.java
 Date of the code 
-Programmer's name: Yashira Almanza & 
+Programmer's name: Yashira Almanza, Margarita
 Brief description of the class/module: 
 The customer will be able to select the room of their choice, and they would be able to select the dates of their check-in and check-out. 
 Brief explanation of important functions in each class, including its input values and output values 
