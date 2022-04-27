@@ -22,11 +22,23 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;  
 import org.apache.poi.xssf.usermodel.XSSFSheet;  
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;  
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 
 /**
  *
  * @author Lissett
  */
+
+/*
+     Public Class Payment
+     April 18, 2022
+     Lissett Laguna
+     This class is where we will control the input of the payment page. The user input is stored in the respective variables, nd then written into the excel file.
+     Brief explanation of important functions in each class, including its input values and output values The functions used are writeToFile(), which is used to send the input information(card name, number, date, and cvc number) into the excel file, we are using the properties of cell and row to keep things organized in the file, we also use close() to close the file when writing process is completed 
+     The process requires writing to the file, so the process is it creates a new cell in the row and sets the cell to be the value of the user input, this continues as the input in process one by one and when finished, the file is closed.
+*/
+
 public class payment extends javax.swing.JFrame {
 
     /**
@@ -41,25 +53,24 @@ public class payment extends javax.swing.JFrame {
     public payment() {
         initComponents();
     }
-    
+ //process to write to file, using customer input   
 public static void writeToFile(String cardName, String cardNumber, String cardExp, String cardCvc) throws FileNotFoundException, IOException {
+        //file object with file name to be modified
         String excelFilePath = "hotel_info.xlsx";
         File file = new File(excelFilePath);
         
         try (FileInputStream excelFile = new FileInputStream(file)){
-   //         FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
-           // Workbook workbook = WorkbookFactory.create(inputStream);
- 
-       //     Sheet sheet = workbook.getSheetAt(0);
-       XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
+            //workbook instance
+            XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
             XSSFSheet sheet = workbook.getSheet("Sheet1");
             
                 int lastRow = sheet.getLastRowNum();
+                
                 //last row needs to be incremted, otherwise will overwrite
                 lastRow++;
-                //String stringRow = String.valueOf(lastRow);
+          
                 Row row = sheet.createRow(lastRow);
-            
+                
             Cell entry9 = row.createCell(9);
             entry9.setCellValue(cardName);
                          
@@ -71,38 +82,18 @@ public static void writeToFile(String cardName, String cardNumber, String cardEx
             
             Cell entry12 = row.createCell(12);
             entry12.setCellValue(cardCvc);
-            
+
+            //close file
             excelFile.close();
             
-             FileOutputStream outFile = new FileOutputStream(new File(excelFilePath));
-             workbook.write(outFile);
-             outFile.close();
+            //this is what writes/saves the file
+            FileOutputStream outFile = new FileOutputStream(new File(excelFilePath));
+            workbook.write(outFile);
+            outFile.close();
             
         }
 
 }
-
-     public static int getLastRow() throws FileNotFoundException, IOException{
-        String excelFilePath = "hotel_info.xlsx";
-        File file = new File(excelFilePath);
-        //int number = Integer.parseInt(num);
-        int lastrow;
-        //DataFormatter formatter = new DataFormatter();
-        try (FileInputStream excelFile = new FileInputStream(file)) {
-                
-                XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
-                XSSFSheet sheet = workbook.getSheet("Sheet1"); 
-                lastrow = sheet.getLastRowNum();
-                excelFile.close();
-                
-            try ( //this is what writes/saves the file
-                    FileOutputStream outFile = new FileOutputStream(new File(excelFilePath))) {
-                workbook.write(outFile);
-            }
-                
-        }
-        return lastrow;
-    }
 
     
     /**
@@ -231,6 +222,7 @@ public static void writeToFile(String cardName, String cardNumber, String cardEx
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        //set variables to get the text
         cardName = enterCardName.getText().trim();
         cardNumber = enterCardNumber.getText().trim();
         cardExp = enterCardExp.getText().trim(); 
@@ -245,11 +237,7 @@ public static void writeToFile(String cardName, String cardNumber, String cardEx
         else{
             try {
                 writeToFile(cardName, cardNumber, cardExp, cardCvc);
-
-            
-                //linking confirmation page, dependent
-             //   new confirmation(cardName, cardNumber, cardExp, cardCvc).setVisible(true);
-             //  this.setVisible(false);
+        //Print if file written and closed successfully
         System.out.println("Success");
             
             } catch (IOException ex) {
