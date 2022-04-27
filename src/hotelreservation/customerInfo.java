@@ -5,7 +5,6 @@
  */
 package hotelreservation;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,9 +22,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Objects;
 import javax.swing.JOptionPane;
-import org.apache.poi.ss.usermodel.DataFormatter;
 
 /**
  *
@@ -41,11 +38,20 @@ private String phoneNumber;
 private String emailAddress;
 private String checkIn;
 private String checkOut;
-int selectedCheckIn; //mutable variable
-int selectedCheckOut; //mutable variable
-  int confirmationNum; //mutable variable     
+int selectedCheckIn; 
+int selectedCheckOut;
+  int confirmationNum;      
 
-    /* Constructor */
+/**a)customerInfo
+ * b)04/14/2022
+ * c)Margarita, Summayah
+ * d)This class allows users to enter their information which is then filed
+ * into a master excel sheet of all reservations made
+ * e)Important functions in this class: getCheckInDates, getCheckOutDates,
+ * writeToFile, getLastRow
+ */
+
+
     public customerInfo() {
         initComponents();
         /*Calling getCheckInDates(), iterating through arrayList to create 
@@ -58,7 +64,13 @@ int selectedCheckOut; //mutable variable
             checkInCombo.setModel(new javax.swing.DefaultComboBoxModel<>(checkInDaysArray));  
     }
     
-    /* Method for Check IN Date list*/
+
+    /** getCheckIn dates creates an ArrayList of the valid check in dates for 
+     * the user starting with the current date (today's date) until Saturday
+     * of the same week
+     * @return the ArrayList with the check out dates, as specified
+     */
+
     public static ArrayList getCheckInDates(){
         ArrayList currentWeek = new ArrayList(); 
         LocalDate localDate = LocalDate.now();
@@ -74,12 +86,14 @@ int selectedCheckOut; //mutable variable
     
     
     
-    /* Method for Check Out Date list
-       selectedCheckIn date is passed in through action(combobox selection)
-       method determines valid user dates for check in starting at the 
-       selectedDay + 1. String array of valid check out dates - only up to sunday of
-       that week. 
+    /** getCheckOutDates method determines valid user dates for checking out,
+     * starting at the selectedCheckIn + 1. 
+     * @param selectedCheckIn is an int representing the day of the week 
+     * selected where an int, 1-7, represent the specific day of the week, Mon-
+     * Sunday.
+     * 
     */
+
     public void getCheckOutDates(int selectedCheckIn){
         ArrayList validDatesArrayList = new ArrayList();
         LocalDate validCheckOut = LocalDate.now().plusDays(selectedCheckIn);
@@ -99,7 +113,19 @@ int selectedCheckOut; //mutable variable
     
     
     
-    /* Write To File Called ON Button Click, taking customer info and writing into one row in sheet*/
+    /** writeToFile method is called when user click button, and its purpose is
+     * taking the users input and writing it to the next available row
+     * in the excel sheet (containing all reservations made)
+     * @param first is the users input string for their first name
+     * @param last is the users input string for their first name
+     * @param numOfGuest is the users input string for the number of guests
+     * @param phone is the users input string for their phone number
+     * @param email is the users input string for their email
+     * @param inDate is the users selected check in date
+     * @param outDate is the users selected check out date
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void writeToFile(String first, String last, String numOfGuest, String phone, String email, String inDate, String outDate) throws FileNotFoundException, IOException{
         //opening excel file
         String excelFilePath = "hotel_info.xlsx";
@@ -112,10 +138,8 @@ int selectedCheckOut; //mutable variable
                 int lastRow = sheet.getLastRowNum();
                 //last row needs to be incremted, otherwise will overwrite
                 lastRow++;
-                //String stringRow = String.valueOf(lastRow);
                 Row row = sheet.createRow(lastRow);
-                //Customer info
-                //for next sprint: create a for loop or manually add all fields
+               
                 Cell entry0 = row.createCell(0);
                 entry0.setCellValue(first);
                 
@@ -149,7 +173,14 @@ int selectedCheckOut; //mutable variable
                 
             }
     }
-     public static int getLastRow() throws FileNotFoundException, IOException{
+
+    /**
+     *
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public static int getLastRow() throws FileNotFoundException, IOException{
         String excelFilePath = "hotel_info.xlsx";
         File file = new File(excelFilePath);
         //int number = Integer.parseInt(num);
@@ -430,11 +461,7 @@ int selectedCheckOut; //mutable variable
             try {
                 writeToFile(firstName,lastName, guestNum, phoneNumber,emailAddress,checkIn,checkOut);
                 int confirmationNum = getLastRow();
-                //generate random number between 1 and 10
-                //send number to confirmation page to display
-              //  java.util.Random x = new java.util.Random();
-               // int numGenerate = 1 + x.nextInt(10);
-               // String info = enterFirstName.getText();
+
             
                 //linking confirmation page, dependent
                 new confirmation(firstName, lastName, guestNum, phoneNumber, emailAddress, confirmationNum).setVisible(true);
