@@ -17,6 +17,21 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author 12137
+ * Module name or Class name in the Design: welcome.java
+Date of the code: 4/26/22
+Programmer's name: Yashira Almanza & 
+Brief description of the class/module 
+In this class the four main actions are Make a Reservation , Cancel Reservation, Sign Up and Log In
+Brief explanation of important functions in each class, including its input values and output values 
+Making a Reservation-
+Cancel reservation-
+Sign Up- In this function the customer is able to enter the email address to register in order to get rewards for the next reservation. 
+Log In- This function ables the customer to enter the email that customer registered if they sign up. If the email address is found in the file, they get to pick the rewards that they want and will be stored in the database.
+Any important data structure in class/methods 
+Sign Up-
+registerCustomer()
+logIn()
+
  */
 
 
@@ -159,9 +174,9 @@ String outMsg;
       JOptionPane.showMessageDialog(null,outMsg);
 }
     
-    //the method for the customer to be able to enter the email 
-    //if email is found in the file text, then the customer is able to pick 
-    //a reward 
+    /**the method for the customer to be able to enter the email 
+    if email is found in the file text, then the customer is able to pick 
+    a reward */
     private void logIn() throws IOException{
         
        // boolean win = false;
