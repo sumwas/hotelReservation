@@ -16,6 +16,25 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author 12137
+ * 
+ Provide a complete summary for each module/class header: include 
+Module name or Class name in the Design:  hotelRooms.java
+Date of the code 
+Programmer's name: Yashira Almanza & 
+Brief description of the class/module: 
+The customer will be able to select the room of their choice, and they would be able to select the dates of their check-in and check-out. 
+Brief explanation of important functions in each class, including its input values and output values 
+Select a room - The customer will be able to select the room, and for each selection the price will appear and they will be asked if they want to confirm the room, and if yes, it will go to the excel database. 
+any important data structure in class/methods 
+doubleBedsSelectedActionPerformed()
+KingLakeSelectedActionPerformed()
+KingbedwithbalconyActionPerformed()
+* I have also used GUI for the customer to interact with the page for example to select the room, and the customer has to decide of they want to confirm the room or not
+* if they confirm the room, then the data will go to the excel database.  
+briefly describe any algorithm that you may have used and why did you select it upon other algorithms where more than one option exists.
+* For each action performed, it will show the price and interact with the customer. 
+* 
+
  */
 public class hotelRooms extends javax.swing.JFrame {
 
@@ -238,7 +257,10 @@ String outMsg;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * this is linked to another class 
+ * @param evt 
+ */
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         // TODO add your handling code here:
         selecting_room room = new selecting_room();
@@ -257,6 +279,12 @@ String outMsg;
                based on this checkIn date, we can determine valid checkOut date
             */
             outMsg = "$50"; //welcome with the character pressed
+            
+            /**
+             * A message will appear for each option of the rooms,
+             * then the customer will decide if they want to choose that room, and if do, it will update the excel
+             * if the customer says no, they they will be able to choose another room option and same process. 
+             */
       JOptionPane.showMessageDialog(null,outMsg);
       int option = JOptionPane.showConfirmDialog(null, "Do you want room?"); // using will press "yes" or " no" or "cancel"
          
