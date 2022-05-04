@@ -42,7 +42,24 @@ public class selecting_room extends javax.swing.JFrame {
 int counter =0;
 
 
+int totalPrice;
+int roomPrice;
+int dayCount;
+static String selectedRoomType;
+String checkIn;
+String checkOut;
 
+         public selecting_room(String selection, String dateIn, String dateOut, int total, int roomAmount, int days) {
+        initComponents();
+        selectedRoomType = selection;
+        checkIn = dateIn;
+        checkOut = dateOut;
+        totalPrice = total;
+        roomPrice = roomAmount;
+        dayCount = days;
+      // customerInfo = info;
+       // numGenerate = number; 
+    }
 
 
     /**
@@ -252,9 +269,12 @@ int counter =0;
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        customerInfo custInfo = new customerInfo();
-        custInfo.show();
-        dispose();
+        
+        new customerInfo(selectedRoomType, checkIn, checkOut, totalPrice, roomPrice, dayCount).setVisible(true);
+        this.setVisible(false);
+     //   customerInfo custInfo = new customerInfo();
+     //   custInfo.show();
+    //    dispose();
         JOptionPane.showMessageDialog(null, "Great! Your total is $50!"); 
     }//GEN-LAST:event_jButton1ActionPerformed
 
