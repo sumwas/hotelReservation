@@ -55,7 +55,14 @@ int selectedCheckOut;
 ArrayList checkInArrayList;
 ArrayList checkOutArrayList;
 ArrayList roomsArrayList;
-    
+
+static String selectedRoomType;
+String checkIn;
+String checkOut;
+int totalPrice;
+int roomPrice;
+int dayCount;
+
     /**
      * Creates new form hotelRooms
      */
@@ -63,7 +70,7 @@ ArrayList roomsArrayList;
         initComponents();
         getCheckInDates();
     }
-
+    
     @SuppressWarnings("unchecked")
         /* Method for Check IN Date list*/
     
@@ -359,9 +366,42 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
         if(roomSelectionGroup.getSelection() == null){
             JOptionPane.showMessageDialog(null, "Please select a room!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        selecting_room room = new selecting_room();
-        room.show();
-        dispose();
+        
+         this.kingLakeSelected.setActionCommand("King Bed with Lakeview");
+         this.doubleLakeSelected.setActionCommand("Double Queen Beds");
+         this.kingBalconySelected.setActionCommand("King Bed with Balcony");
+
+        // option selected  
+        selectedRoomType = this.roomSelectionGroup.getSelection().getActionCommand();
+        
+        if (doubleLakeSelected.isSelected()){
+            roomPrice = 50;
+            System.out.println(" " + roomPrice);
+        }
+             if (kingBalconySelected.isSelected()){
+            roomPrice = 100;
+            System.out.println(" " + roomPrice);
+        }
+        
+            if (kingLakeSelected.isSelected()){
+            roomPrice = 150;
+            System.out.println(" " + roomPrice);
+        }
+            
+           System.out.println(selectedCheckOut++);
+           System.out.println(selectedCheckIn);
+           
+           dayCount = (selectedCheckOut) - (selectedCheckIn);
+           totalPrice = roomPrice * dayCount;
+           System.out.println(dayCount);
+           System.out.println(totalPrice);
+        
+     new selecting_room(selectedRoomType, checkIn, checkOut, totalPrice, roomPrice, dayCount).setVisible(true);
+     this.setVisible(false);   
+        
+        //selecting_room room = new selecting_room();
+       // room.show();
+       // dispose();
     }//GEN-LAST:event_nextButtonActionPerformed
 
     
@@ -448,7 +488,7 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
         use the displayed date*/
             selectedCheckOut = checkOutCombo.getSelectedIndex();
             LocalDate checkOut = checkOutCombo.getItemAt(selectedCheckOut);
-
+            
     }//GEN-LAST:event_checkInComboActionPerformed
 
     private void kingBalconySelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kingBalconySelectedActionPerformed
