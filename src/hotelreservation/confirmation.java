@@ -10,15 +10,34 @@ package hotelreservation;
  * @author 12137
  */
 
-/*
+/**
 Public Class Confirmation
 April 8, 2022
 Lissett Laguna
 The following includes the parameter tags and the constructor to receive the data for first name, last name, guest number, phone number, email, and confirmation number.
 These values were received through the customer input, and the reservation number was generated through the push of the button on the customerInfo page
 We wanted to take the customer input and display it right away since it would be the same information being put into the excel file anyways, this was done for the sake of keeping things more simple for the time being
-*/
-public class confirmation extends javax.swing.JFrame {
+**/
+public class confirmation extends javax.swing.JFrame {    
+    
+private String firstName;
+private String lastName;
+private String guestNum;
+private String phoneNumber;
+private String emailAddress;
+
+int selectedCheckIn; 
+int selectedCheckOut;
+int confirmationNum;  
+  
+static String selectedRoomType;
+
+int totalPrice;
+int roomPrice;
+int dayCount;
+  
+String checkIn;
+String checkOut;
     /**
      * Creates new form confirmation
      * @param first
@@ -27,21 +46,33 @@ public class confirmation extends javax.swing.JFrame {
      * @param phone
      * @param email
      * @param number
+     * @param type
+     * @param dateIn
+     * @param dateOut
+     * @param total
+     * @param roomAmount
+     * @param days
      */
    // public confirmation() {
      //   initComponents();
     //}
         //information will be set to the jlabel it is assigned     
-        public confirmation(String first, String last, String guest, String phone, String email, int number){
+        public confirmation(String first, String last, String guest, String phone, String email, int number, String type, String dateIn, String dateOut, int total, int roomAmount, int days){
         initComponents();
         nameHolder.setText(first);
         lastNameHolder.setText(last);
         guestHolder.setText(guest);
         phoneHolder.setText(phone);
         emailHolder.setText(email);
-        resNumber.setText(number + "");
+      //  resNumber.setText(number + "");
+        selectedRoomHolder.setText(type);
+        checkInHolder.setText(dateIn);
+        checkOutHolder.setText(dateOut);
+        totalPriceHolder.setText(total + "");
+        roomPrice = roomAmount;
+        dayCount = days;
       //cardHolder.setText(cardNumber);
-       //checkOutHolder.setText(checkOut);
+       
     }
 
     private confirmation() {
@@ -61,8 +92,6 @@ public class confirmation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        confirmationLabel = new javax.swing.JLabel();
-        resNumber = new javax.swing.JLabel();
         holder = new javax.swing.JLabel();
         Holderlabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -73,14 +102,34 @@ public class confirmation extends javax.swing.JFrame {
         guestHolder = new javax.swing.JLabel();
         phoneHolder = new javax.swing.JLabel();
         emailHolder = new javax.swing.JLabel();
-        exitMessageLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        enterCardName = new javax.swing.JFormattedTextField();
+        enterCardNum = new javax.swing.JFormattedTextField();
+        enterCardExp = new javax.swing.JFormattedTextField();
+        enterCardCvc = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
+        checkInHolder = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        checkOutHolder = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        writeButton = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        totalPriceHolder = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        selectedRoomHolder = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 500));
-
-        confirmationLabel.setText("Your reservation is complete. Here is your reservation number:");
-
-        resNumber.setText("resNumber");
+        setMaximumSize(new java.awt.Dimension(456, 640));
+        setMinimumSize(new java.awt.Dimension(456, 640));
+        setPreferredSize(new java.awt.Dimension(456, 640));
 
         holder.setText("First Name");
 
@@ -102,11 +151,117 @@ public class confirmation extends javax.swing.JFrame {
 
         emailHolder.setText("jLabel10");
 
-        exitMessageLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        exitMessageLabel.setText("See You Soon!");
-        exitMessageLabel.setMaximumSize(new java.awt.Dimension(151, 29));
-        exitMessageLabel.setMinimumSize(new java.awt.Dimension(151, 29));
-        exitMessageLabel.setPreferredSize(new java.awt.Dimension(151, 29));
+        jLabel4.setText("Please enter payment information:");
+
+        jLabel5.setText("Name on card");
+
+        jLabel6.setText("Card Number");
+
+        jLabel7.setText("Card Exp.");
+
+        jLabel8.setText("Card Cvc");
+
+        try {
+            enterCardNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#### #### #### ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        enterCardNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterCardNumActionPerformed(evt);
+            }
+        });
+
+        try {
+            enterCardExp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            enterCardCvc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        enterCardCvc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterCardCvcActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(enterCardName)
+                            .addComponent(enterCardNum, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(enterCardCvc, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(enterCardExp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)))))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(enterCardName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(enterCardNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(enterCardExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(enterCardCvc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel9.setText("Check In");
+
+        checkInHolder.setText("checkIn");
+
+        jLabel10.setText("Check Out");
+
+        checkOutHolder.setText("checkOut");
+
+        jLabel11.setText("Room Number");
+
+        jLabel12.setText("roomNum");
+
+        writeButton.setText("Finish");
+        writeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                writeButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Total:");
+
+        totalPriceHolder.setText("totalPrice");
+
+        jLabel15.setText("Room Type");
+
+        selectedRoomHolder.setText("selectedRoomType");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,39 +272,61 @@ public class confirmation extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1)
-                                    .addComponent(Holderlabel)
-                                    .addComponent(holder))
-                                .addGap(159, 159, 159)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(phoneHolder)
-                                        .addComponent(emailHolder))
-                                    .addComponent(guestHolder)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lastNameHolder, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(nameHolder))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(resNumber))))
+                                        .addComponent(jLabel9)
+                                        .addComponent(checkInHolder))
+                                    .addGap(76, 76, 76)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(checkOutHolder)
+                                        .addComponent(jLabel10))
+                                    .addGap(62, 62, 62)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addGap(35, 35, 35)))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(Holderlabel)
+                            .addComponent(holder)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(202, 202, 202)
-                        .addComponent(exitMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(255, Short.MAX_VALUE))
+                        .addGap(154, 154, 154)
+                        .addComponent(writeButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(phoneHolder)
+                                .addComponent(emailHolder))
+                            .addComponent(guestHolder)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lastNameHolder, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(nameHolder)))))
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(24, 24, 24))
+                    .addComponent(selectedRoomHolder, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalPriceHolder)
+                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(confirmationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resNumber))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(holder)
                     .addComponent(nameHolder))
@@ -169,13 +346,58 @@ public class confirmation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(emailHolder))
-                .addGap(49, 49, 49)
-                .addComponent(exitMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkInHolder)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel13)
+                                .addComponent(totalPriceHolder))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(selectedRoomHolder)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkOutHolder)))
+                .addGap(5, 5, 5)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(writeButton)
+                .addGap(25, 25, 25))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void enterCardCvcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterCardCvcActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enterCardCvcActionPerformed
+
+    private void enterCardNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterCardNumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enterCardNumActionPerformed
+
+    private void writeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_writeButtonActionPerformed
+        // TODO add your handling code here:
+                        //linking confirmation page, dependent
+                new completeProcess(firstName, lastName, guestNum, phoneNumber, emailAddress, confirmationNum).setVisible(true);
+                this.setVisible(false);
+        
+    }//GEN-LAST:event_writeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,17 +436,37 @@ public class confirmation extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Holderlabel;
-    private javax.swing.JLabel confirmationLabel;
+    private javax.swing.JLabel checkInHolder;
+    private javax.swing.JLabel checkOutHolder;
     private javax.swing.JLabel emailHolder;
-    private javax.swing.JLabel exitMessageLabel;
+    private javax.swing.JFormattedTextField enterCardCvc;
+    private javax.swing.JFormattedTextField enterCardExp;
+    private javax.swing.JFormattedTextField enterCardName;
+    private javax.swing.JFormattedTextField enterCardNum;
     private javax.swing.JLabel guestHolder;
     private javax.swing.JLabel holder;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lastNameHolder;
     private javax.swing.JLabel nameHolder;
     private javax.swing.JLabel phoneHolder;
-    private javax.swing.JLabel resNumber;
+    private javax.swing.JLabel selectedRoomHolder;
+    private javax.swing.JLabel totalPriceHolder;
+    private javax.swing.JButton writeButton;
     // End of variables declaration//GEN-END:variables
 }
