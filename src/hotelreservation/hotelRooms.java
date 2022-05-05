@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -57,12 +58,20 @@ ArrayList checkOutArrayList;
 ArrayList roomsArrayList;
 
 static String selectedRoomType;
-String checkIn;
-String checkOut;
+//String checkIn;
+//String checkOut;
 int totalPrice;
 int roomPrice;
 int dayCount;
 
+int monthIn;
+int dayIn;
+int yearIn;
+int monthOut;
+int dayOut;
+
+String finalCheckIn;
+String finalCheckOut;
     /**
      * Creates new form hotelRooms
      */
@@ -388,16 +397,42 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
             System.out.println(" " + roomPrice);
         }
             
-           System.out.println(selectedCheckOut++);
-           System.out.println(selectedCheckIn);
-           
-           dayCount = (selectedCheckOut) - (selectedCheckIn);
-           totalPrice = roomPrice * dayCount;
-           System.out.println(dayCount);
-           System.out.println(totalPrice);
+    // String inString = checkInCombo.getItemAt(selectedCheckIn).getValue();
+    //   LocalDate  outString = checkOutCombo.getItemAt(selectedCheckOut);
+            
+           int checkInDay = checkInCombo.getItemAt(selectedCheckIn).getDayOfWeek().getValue();
+           int checkOutDay = checkOutCombo.getItemAt(selectedCheckOut).getDayOfWeek().getValue();
+
+           System.out.println("check in "+checkInDay);
+           System.out.println("check out "+checkOutDay);
+     //      System.out.println("check in string " +checkIn);
+         //  System.out.println(inString);
+         //  System.out.println(outString);
+         System.out.println(selectedCheckIn);
+     //   System.out.println(checkInCombo.getItemAt(selectedCheckIn).().getValue());
         
-     new selecting_room(selectedRoomType, checkIn, checkOut, totalPrice, roomPrice, dayCount).setVisible(true);
-     this.setVisible(false);   
+
+         monthIn = checkInCombo.getItemAt(selectedCheckIn).getMonthValue();
+       dayIn = checkInCombo.getItemAt(selectedCheckIn).getDayOfMonth();
+     yearIn = checkInCombo.getItemAt(selectedCheckIn).getYear();
+     
+       monthOut = checkOutCombo.getItemAt(selectedCheckOut).getMonthValue();
+       dayOut = checkOutCombo.getItemAt(selectedCheckOut).getDayOfMonth();
+       finalCheckIn = monthIn + "-" + "" + dayIn + "-" + "" + yearIn;
+       finalCheckOut = monthOut + "-" + "" + dayOut + "-" + "" + yearIn;
+      System.out.println(finalCheckIn);
+      System.out.println(finalCheckOut);
+           
+           dayCount = (checkOutDay+1) - (checkInDay+1);
+           totalPrice = roomPrice * dayCount;
+           System.out.println("days " +dayCount);
+           System.out.println("Total " +totalPrice);
+        
+    new selecting_room(selectedRoomType, totalPrice, roomPrice, dayCount, finalCheckIn, finalCheckOut).setVisible(true);
+     this.setVisible(false);  
+     
+     
+   //  this.checkIn.getSelectedValue();
         
         //selecting_room room = new selecting_room();
        // room.show();
@@ -488,7 +523,7 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
         use the displayed date*/
             selectedCheckOut = checkOutCombo.getSelectedIndex();
             LocalDate checkOut = checkOutCombo.getItemAt(selectedCheckOut);
-            
+
     }//GEN-LAST:event_checkInComboActionPerformed
 
     private void kingBalconySelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kingBalconySelectedActionPerformed
