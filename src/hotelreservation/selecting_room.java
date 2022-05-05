@@ -48,15 +48,27 @@ int dayCount;
 static String selectedRoomType;
 String checkIn;
 String checkOut;
+int features;
 
-         public selecting_room(String selection, String dateIn, String dateOut, int total, int roomAmount, int days) {
+int monthIn;
+int dayIn;
+int yearIn;
+
+String finalCheckIn;
+String finalCheckOut;
+
+
+         public selecting_room(String selection,  int total, int roomAmount, int days, String timeIn, String timeOut) {
         initComponents();
         selectedRoomType = selection;
-        checkIn = dateIn;
-        checkOut = dateOut;
+      //  checkIn = dateIn;
+      //  checkOut = dateOut;
         totalPrice = total;
         roomPrice = roomAmount;
         dayCount = days;
+        finalCheckIn = timeIn;
+        finalCheckOut = timeOut;
+    //    yearIn = year;
       // customerInfo = info;
        // numGenerate = number; 
     }
@@ -270,7 +282,9 @@ String checkOut;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        new customerInfo(selectedRoomType, checkIn, checkOut, totalPrice, roomPrice, dayCount).setVisible(true);
+        totalPrice = totalPrice + features;
+        
+        new customerInfo(selectedRoomType, checkIn, checkOut, totalPrice, roomPrice, dayCount, features,  finalCheckIn, finalCheckOut).setVisible(true);
         this.setVisible(false);
      //   customerInfo custInfo = new customerInfo();
      //   custInfo.show();
@@ -289,7 +303,7 @@ String checkOut;
             if (ExtraHangersft.isSelected()) {
                 
                 counter++;
-                
+                features = 50;
                 //if not max, and this checkbox is unselected, subtract 1 from the counter so it removes this checkbox as one of the 3 clicked 
             } else {
                 counter--;
@@ -309,6 +323,7 @@ String checkOut;
             if (petFriendly.isSelected()) {
                 
                 counter++;
+                features = 50;
                
                 //if not max, and this checkbox is unselected, subtract 1 from the counter so it removes this checkbox as one of the 3 clicked 
             } else {
@@ -327,7 +342,7 @@ String checkOut;
             if (ExtraPillowsft.isSelected()) {
                 
                 counter++;
-                
+                features = 50;
                 //if not max, and this checkbox is unselected, subtract 1 from the counter so it removes this checkbox as one of the 3 clicked 
             } else {
                 counter--;
@@ -346,7 +361,7 @@ String checkOut;
             if (gymArea.isSelected()) {
                 
                 counter++;
-                
+                features = 50;
                 //if not max, and this checkbox is unselected, subtract 1 from the counter so it removes this checkbox as one of the 3 clicked 
             } else {
                 counter--;
@@ -365,7 +380,7 @@ String checkOut;
             if (playgroundArea.isSelected()) {
                
                 counter++;
-               
+                features = 50;
                 //if not max, and this checkbox is unselected, subtract 1 from the counter so it removes this checkbox as one of the 3 clicked 
             } else {
                 counter--;
@@ -384,7 +399,7 @@ String checkOut;
             if (smokingArea.isSelected()) {
                
                 counter++;
-              
+                features = 50;
                 //if not max, and this checkbox is unselected, subtract 1 from the counter so it removes this checkbox as one of the 3 clicked 
             } else {
                 counter--;
@@ -402,7 +417,7 @@ String checkOut;
             if (poolAccessArea.isSelected()) {
                 
                 counter++;
-               
+                features = 50;
                 //if not max, and this checkbox is unselected, subtract 1 from the counter so it removes this checkbox as one of the 3 clicked 
             } else {
                 counter--;
@@ -421,7 +436,7 @@ String checkOut;
             if (BreakfastPlanft.isSelected()) {
                 
                 counter++;
-               
+                features = 50;
                 //if not max, and this checkbox is unselected, subtract 1 from the counter so it removes this checkbox as one of the 3 clicked 
             } else {
                 counter--;
@@ -443,7 +458,7 @@ String checkOut;
             if (ExtraTowelsft.isSelected()) {
                 
                 counter++;
-               
+                features = 50;
                 //if not max, and this checkbox is unselected, subtract 1 from the counter so it removes this checkbox as one of the 3 clicked 
             } else {
                 counter--;
