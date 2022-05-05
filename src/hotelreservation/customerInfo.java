@@ -51,14 +51,21 @@ String checkOut;
 int totalPrice;
 int roomPrice;
 int dayCount;
-  
+int features;  
   //From selecting_room
 String outMsg;
+
+int monthIn;
+int dayIn;
+int yearIn;
+
+String finalCheckIn;
+String finalCheckOut;
 
   
   
   
-      public customerInfo(String selection, String dateIn, String dateOut, int total, int roomAmount, int days) {
+      public customerInfo(String selection, String dateIn, String dateOut, int total, int roomAmount, int days, int feats, String timeIn, String timeOut) {
         initComponents();
         selectedRoomType = selection;
         checkIn = dateIn;
@@ -66,6 +73,10 @@ String outMsg;
         totalPrice = total;
         roomPrice = roomAmount;
         dayCount = days;
+        features = feats;
+        finalCheckIn = timeIn;
+       finalCheckOut = timeOut;
+    //    yearIn = year;
       // customerInfo = info;
        // numGenerate = number; 
     }
@@ -500,7 +511,7 @@ String outMsg;
         */
         
                 //linking confirmation page, dependent
-                new confirmation(firstName, lastName, guestNum, phoneNumber, emailAddress, confirmationNum, selectedRoomType, checkIn, checkOut, totalPrice, roomPrice, dayCount).setVisible(true);
+                new confirmation(firstName, lastName, guestNum, phoneNumber, emailAddress, confirmationNum, selectedRoomType, checkIn, checkOut, totalPrice, roomPrice, dayCount, features, finalCheckIn, finalCheckOut).setVisible(true);
                 this.setVisible(false);
         
     
