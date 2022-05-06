@@ -55,15 +55,19 @@ public class checkReservation extends javax.swing.JFrame {
         File file = new File(excelFilePath);
         //int number = Integer.parseInt(num);
         DataFormatter formatter = new DataFormatter();
+        //int reservationFound = 0;
         try (FileInputStream excelFile = new FileInputStream(file)) {
                 
                 XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
                 XSSFSheet sheet = workbook.getSheet("Sheet1"); 
                 int lastrow = sheet.getLastRowNum();
                 int done = 0;
-                for (int i = 0; i< lastrow; i++){
+                for (int i = 0; i<= lastrow; i++){
                      Cell cell_confirm_num = sheet.getRow(i).getCell(7);
-                     Cell cell_first_name = sheet.getRow(i).getCell(1);
+                     Cell cell_first_name = sheet.getRow(i).getCell(0);
+                     Cell cell_last_name = sheet.getRow(i).getCell(1);
+                     Cell cell_checkin_date = sheet.getRow(i).getCell(5);
+                     Cell cell_checkout_date = sheet.getRow(i).getCell(6);
                      if (Objects.equals(formatter.formatCellValue(cell_confirm_num), num)){
                          Cell cell_reserve = sheet.getRow(i).getCell(8);
                          if (Objects.equals(formatter.formatCellValue(cell_reserve), "F")) {
@@ -77,7 +81,9 @@ public class checkReservation extends javax.swing.JFrame {
                              //pull up check reservation info page 
                              //String info = cell_info.getStringCellValue();
                              JFrame jFrame = new JFrame();
-                             JOptionPane.showMessageDialog(jFrame, num);
+                             JOptionPane.showMessageDialog(jFrame, "Hi " + cell_first_name + " " + cell_last_name + "! " + "Your reservation is from " + cell_checkin_date + "to " + cell_checkout_date );
+                             
+                             //new checkReservationConfirm().setVisible(true);
                              
                          }
                          done = 1;
