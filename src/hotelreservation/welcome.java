@@ -38,6 +38,8 @@ logIn()
 public class welcome extends javax.swing.JFrame {
 String email;
 String outMsg;
+String checkIfEmail = "@";
+String checkIfEmail2 = ".com";
     /**
      * Creates new form welcome
      */
@@ -175,6 +177,14 @@ String outMsg;
       PrintWriter out = new PrintWriter(fw);
    
       email = JOptionPane.showInputDialog("Enter your email: "); 
+       while(email.isEmpty()||email==null){
+                   JOptionPane.showMessageDialog(null, "Please enter text field!", "Error", JOptionPane.ERROR_MESSAGE);
+                   email = JOptionPane.showInputDialog("Enter your email: ");
+               }
+      while(((email.contains(checkIfEmail)) && (email.contains(checkIfEmail2))) == false){
+          JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
+                   email = JOptionPane.showInputDialog("Enter your email: ");
+      }
       out.println(email);
    
       // Close the file.
@@ -198,6 +208,19 @@ String outMsg;
       String input = null;
      
       email = JOptionPane.showInputDialog("Enter your email: ");
+      //System.out.print(email);
+      while(email.isEmpty()||email==null){
+                   JOptionPane.showMessageDialog(null, "Please enter the text field!", "Error", JOptionPane.ERROR_MESSAGE);
+                   email = JOptionPane.showInputDialog("Enter your email: ");
+               }
+      while(((email.contains(checkIfEmail)) && (email.contains(checkIfEmail2))) == false){
+          JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
+                   email = JOptionPane.showInputDialog("Enter your email: ");
+      } 
+      while(isNumeric(email)){
+                   JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
+                   email = JOptionPane.showInputDialog("Enter your email: ");
+               }
       
       boolean flag = false;
       int count = 0;
@@ -229,8 +252,8 @@ String outMsg;
          JOptionPane.showMessageDialog(null, "Thank you for being a member!");
          
       } else {
-         JOptionPane.showMessageDialog(null, "You are nor a member "); 
-         //System.out.println("You are nor a member, Do you want to become one?");
+         JOptionPane.showMessageDialog(null, "You are not a member "); 
+         //System.out.println("You are not a member, Do you want to become one?");
          int option = JOptionPane.showConfirmDialog(null, "Do you want to become one?"); // using will press "yes" or " no" or "cancel"
          
          switch (option){
@@ -240,6 +263,20 @@ String outMsg;
                FileWriter fw = new FileWriter("membershipHotel.txt",true);
                PrintWriter out = new PrintWriter(fw);
                email = JOptionPane.showInputDialog("Enter your email: "); 
+               
+               while(email.isEmpty()||email==null){
+                   JOptionPane.showMessageDialog(null, "Please enter the text field!", "Error", JOptionPane.ERROR_MESSAGE);
+                   email = JOptionPane.showInputDialog("Enter your email: ");
+               }
+      while(((email.contains(checkIfEmail)) && (email.contains(checkIfEmail2))) == false){
+          JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
+                   email = JOptionPane.showInputDialog("Enter your email: ");
+      } 
+      while(isNumeric(email)){
+                   JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
+                   email = JOptionPane.showInputDialog("Enter your email: ");
+               }
+               
                out.println(email);
             
             // Close the file.
@@ -263,7 +300,19 @@ String outMsg;
       }
    }
 
-  
+  public static boolean isNumeric(String string){
+      int intValue;
+      if(string==null || string.isEmpty()){
+          return false;
+      }
+      try{
+          intValue = Integer.parseInt(string);
+          return true;
+      }catch(NumberFormatException e){
+          System.out.print("Cannot be parsed");
+      }
+      return false;
+  }
     
    
     private void reservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationButtonActionPerformed
