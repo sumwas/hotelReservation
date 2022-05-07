@@ -4,6 +4,8 @@
  */
 package hotelreservation;
 
+import static hotelreservation.customerInfo.selectedRoomType;
+
 /**
  *
  * @author Lissett
@@ -20,11 +22,34 @@ private String checkOut;
 int selectedCheckIn; 
 int selectedCheckOut;
   int confirmationNum;  
+  
+  
+  
+static String selectedRoomType;
+
+int totalPrice;
+int roomPrice;
+int dayCount;
+int features;  
+  
+int monthIn;
+int dayIn;
+int yearIn;
+
+ String finalCheckIn;
+ String finalCheckOut;
+ 
+ String cardName;
+ String cardNum;
+ String cardExp;
+ String cardCvc;
+  
+  
 
     /**
      * Creates new form completeProcess
      */
-  
+
   /**
    * 
    * @param fName
@@ -32,18 +57,63 @@ int selectedCheckOut;
    * @param gNum
    * @param phone
    * @param email
-   * @param number 
+   * @param number
+   * @param first
+   * @param last
+   * @param guest
+   * @param phone
+   * @param email
+   * @param number
+   * @param type
+   * @param dateIn
+   * @param dateOut
+     * @param cName
+     * @param cNum
+     * @param cardEx
+     * @param cardC
+   * @param total
+   * @param roomAmount
+   * @param days
+   * @param feats
+   * @param timeIn
+   * @param timeOut 
    */
-    public completeProcess(String fName, String lName, String gNum, String phone, String email, int number) {
+ 
+ 
+ 
+ 
+ public completeProcess(int number) {
+     initComponents();
+     resNumHolder.setText("" + number);
+ }
+         
+ /*
+    public completeProcess(String first, String last, String guest, String phone, String email, int number, String type, String dateIn, String dateOut, int total, int roomAmount, int days, int feats, String timeIn, String timeOut, String cName, String cNum, String cardEx, String cardC) {
         initComponents();
-               firstName = fName;
-               lastName = lName;
-               guestNum = gNum;
+               firstName = first;
+               lastName = last;
+               guestNum = guest;
                phoneNumber = phone;
                emailAddress = email;
-               resNumHolder.setText(""+number);
+               resNumHolder.setText("" + number);
+               selectedRoomType = type;
+                checkIn = dateIn;
+                checkOut = dateOut;
+                totalPrice = total;
+                roomPrice = roomAmount;
+                dayCount = days;
+                features = feats;
+                finalCheckIn = timeIn;
+                finalCheckOut = timeOut;
+                cardName = cName;
+                cardNum = cNum;
+                cardExp = cardEx;
+                cardCvc = cardC;
     }
 
+ 
+ */
+ 
   //  completeProcess(String firstName, String lastName, String guestNum, String phoneNumber, String emailAddress, int confirmationNum) {
   //      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
   //  }
