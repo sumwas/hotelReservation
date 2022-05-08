@@ -423,7 +423,7 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
       System.out.println(finalCheckIn);
       System.out.println(finalCheckOut);
            
-           dayCount = (checkOutDay+1) - (checkInDay+1);
+           dayCount = (dayOut) - (dayIn);
            totalPrice = roomPrice * dayCount;
            System.out.println("days " +dayCount);
            System.out.println("Total " +totalPrice);
