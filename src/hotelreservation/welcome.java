@@ -177,11 +177,11 @@ String checkIfEmail2 = ".com";
       PrintWriter out = new PrintWriter(fw);
    
       email = JOptionPane.showInputDialog("Enter your email: "); 
-       while(email.isEmpty()||email==null){
+       while(isEmpty(email)){
                    JOptionPane.showMessageDialog(null, "Please enter text field!", "Error", JOptionPane.ERROR_MESSAGE);
                    email = JOptionPane.showInputDialog("Enter your email: ");
                }
-      while(((email.contains(checkIfEmail)) && (email.contains(checkIfEmail2))) == false){
+      while((itContains(email))){
           JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
                    email = JOptionPane.showInputDialog("Enter your email: ");
       }
@@ -209,11 +209,11 @@ String checkIfEmail2 = ".com";
      
       email = JOptionPane.showInputDialog("Enter your email: ");
       //System.out.print(email);
-      while(email.isEmpty()||email==null){
+      while(isEmpty(email)){
                    JOptionPane.showMessageDialog(null, "Please enter the text field!", "Error", JOptionPane.ERROR_MESSAGE);
                    email = JOptionPane.showInputDialog("Enter your email: ");
                }
-      while(((email.contains(checkIfEmail)) && (email.contains(checkIfEmail2))) == false){
+      while((itContains(email))){
           JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
                    email = JOptionPane.showInputDialog("Enter your email: ");
       } 
@@ -264,11 +264,11 @@ String checkIfEmail2 = ".com";
                PrintWriter out = new PrintWriter(fw);
                email = JOptionPane.showInputDialog("Enter your email: "); 
                
-               while(email.isEmpty()||email==null){
+               while(isEmpty(email)){
                    JOptionPane.showMessageDialog(null, "Please enter the text field!", "Error", JOptionPane.ERROR_MESSAGE);
                    email = JOptionPane.showInputDialog("Enter your email: ");
                }
-      while(((email.contains(checkIfEmail)) && (email.contains(checkIfEmail2))) == false){
+      while((itContains(email))){
           JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
                    email = JOptionPane.showInputDialog("Enter your email: ");
       } 
@@ -300,19 +300,34 @@ String checkIfEmail2 = ".com";
       }
    }
 
-  public static boolean isNumeric(String string){
+  public boolean isNumeric(String string){
       int intValue;
       if(string==null || string.isEmpty()){
           return false;
       }
       try{
           intValue = Integer.parseInt(string);
-          return true;
+          return true; 
       }catch(NumberFormatException e){
           System.out.print("Cannot be parsed");
       }
       return false;
   }
+  
+  public boolean itContains(String string){
+      if(((string.contains(checkIfEmail)) && (string.contains(checkIfEmail2))) == false){
+          return true;
+      }
+      return false;
+  }
+  
+  public boolean isEmpty(String string){
+      if(string.isEmpty()||string==null){
+         return true; 
+      }
+      return false;
+  }
+  
     
    
     private void reservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationButtonActionPerformed
