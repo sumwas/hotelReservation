@@ -61,44 +61,42 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jSeparator1" alignment="0" min="-2" pref="354" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="Holderlabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="holder" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                                  <Component id="phoneHolder" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="emailHolder" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="guestHolder" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                                  <Component id="lastNameHolder" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="nameHolder" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkInHolder" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="checkOutHolder" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="176" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jSeparator1" alignment="0" min="-2" pref="354" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Holderlabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="holder" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                              <Component id="phoneHolder" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="emailHolder" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="guestHolder" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                              <Component id="lastNameHolder" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="nameHolder" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="154" max="32767" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                      <Component id="checkInHolder" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="checkOutHolder" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="176" max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace pref="6" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -277,10 +275,8 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="enterCardName" alignment="0" max="32767" attributes="0"/>
                               <Component id="enterCardNum" alignment="0" pref="141" max="32767" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="enterCardCvc" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="enterCardExp" alignment="0" pref="49" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="enterCardCvc" alignment="0" max="32767" attributes="0"/>
+                              <Component id="enterCardExp" alignment="0" pref="141" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
