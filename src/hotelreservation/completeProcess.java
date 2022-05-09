@@ -112,6 +112,7 @@ static String finalCheckOut;
      finalCheckOut = checkout;
      roomNum = insertInSchedule(confirmationNum, selectedRoomType, finalCheckIn, finalCheckOut);
      resNumHolder.setText("" + roomNum);
+     resNumHolder1.setText(""+confirmationNum);
  }
          
  /*
@@ -272,6 +273,8 @@ static String finalCheckOut;
         jLabel2 = new javax.swing.JLabel();
         resNumHolder = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        resNumHolder1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -287,6 +290,10 @@ static String finalCheckOut;
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel3.setText("Here is your confirmation number: ");
+
+        resNumHolder1.setText("resNum");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -304,7 +311,12 @@ static String finalCheckOut;
                         .addComponent(resNumHolder))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(141, 141, 141)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(resNumHolder1)))
                 .addContainerGap(148, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -314,7 +326,11 @@ static String finalCheckOut;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(resNumHolder))
-                .addGap(98, 98, 98)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(resNumHolder1))
+                .addGap(67, 67, 67)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(jButton1)
@@ -370,6 +386,8 @@ static String finalCheckOut;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel resNumHolder;
+    private javax.swing.JLabel resNumHolder1;
     // End of variables declaration//GEN-END:variables
 }
