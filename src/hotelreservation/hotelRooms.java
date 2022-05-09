@@ -133,7 +133,7 @@ public void setFalse(){
         /*using boolean array as flags to check that button has already 
         been made available*/
         for(int i = 0; i < roomsList.size(); i++){
-                if(roomsList.get(i) < 5 && roomsTypesAvailable[0] == false){
+                if(roomsList.get(i) <= 5 && roomsTypesAvailable[0] == false){
                     roomsTypesAvailable[0] = true;
                     doubleLakeSelected.getModel().setEnabled(true);
                 }
