@@ -56,6 +56,7 @@ int selectedCheckOut;
 ArrayList checkInArrayList;
 ArrayList checkOutArrayList;
 ArrayList roomsArrayList;
+boolean[] roomsTypesAvailable;
 
 static String selectedRoomType;
 //String checkIn;
@@ -127,12 +128,12 @@ public void setFalse(){
  */
  public void booleanRoomSelection(ArrayList allRoomsAvailable){
     List<Integer> roomsList = new ArrayList<>(allRoomsAvailable);
-    boolean[] roomsTypesAvailable = new boolean[]{false,false,false};
+    roomsTypesAvailable = new boolean[]{false,false,false};
     setFalse();
         /*using boolean array as flags to check that button has already 
         been made available*/
         for(int i = 0; i < roomsList.size(); i++){
-                if(roomsList.get(i) < 5 && roomsTypesAvailable[0] == false){
+                if(roomsList.get(i) <= 5 && roomsTypesAvailable[0] == false){
                     roomsTypesAvailable[0] = true;
                     doubleLakeSelected.getModel().setEnabled(true);
                 }
@@ -374,7 +375,7 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
         //radio button error check
         if(roomSelectionGroup.getSelection() == null){
             JOptionPane.showMessageDialog(null, "Please select a room!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        } else{
         
          this.kingLakeSelected.setActionCommand("King Bed with Lakeview");
          this.doubleLakeSelected.setActionCommand("Double Queen Beds");
@@ -428,13 +429,13 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
            System.out.println("days " +dayCount);
            System.out.println("Total " +totalPrice);
         
-    new selecting_room(selectedRoomType, totalPrice, roomPrice, dayCount, finalCheckIn, finalCheckOut).setVisible(true);
+    new selectingRoomFeatures(selectedRoomType, totalPrice, roomPrice, dayCount, finalCheckIn, finalCheckOut).setVisible(true);
      this.setVisible(false);  
-     
+        }
      
    //  this.checkIn.getSelectedValue();
         
-        //selecting_room room = new selecting_room();
+        //selecting_room room = new selectingRoomFeatures();
        // room.show();
        // dispose();
     }//GEN-LAST:event_nextButtonActionPerformed
