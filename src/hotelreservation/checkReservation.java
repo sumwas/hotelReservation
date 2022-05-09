@@ -81,7 +81,7 @@ public class checkReservation extends javax.swing.JFrame {
                              //pull up check reservation info page 
                              //String info = cell_info.getStringCellValue();
                              JFrame jFrame = new JFrame();
-                             JOptionPane.showMessageDialog(jFrame, "Hi " + cell_first_name + " " + cell_last_name + "! " + "Your reservation is from " + cell_checkin_date + "to " + cell_checkout_date );
+                             JOptionPane.showMessageDialog(jFrame, "Hi " + cell_first_name + " " + cell_last_name + "! " + "Your reservation is from " + cell_checkin_date + " to " + cell_checkout_date );
                              
                              //new checkReservationConfirm().setVisible(true);
                              
