@@ -276,8 +276,6 @@ String finalCheckOut;
         lastNameLabel = new javax.swing.JLabel();
         phoneNumLabel = new javax.swing.JLabel();
         emailAddLabel = new javax.swing.JLabel();
-        checkInLabel = new javax.swing.JLabel();
-        checkOutLabel = new javax.swing.JLabel();
         guestNumLabel = new javax.swing.JLabel();
         enterFirstName = new javax.swing.JFormattedTextField();
         confirmationButton = new java.awt.Button();
@@ -311,10 +309,6 @@ String finalCheckOut;
         phoneNumLabel.setText("Phone number:");
 
         emailAddLabel.setText("Email address: ");
-
-        checkInLabel.setText("Check-in date:");
-
-        checkOutLabel.setText("Check out date:");
 
         guestNumLabel.setText("Number of guests:");
 
@@ -386,10 +380,7 @@ String finalCheckOut;
                                         .addComponent(enterFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(customerInputPanelLayout.createSequentialGroup()
                                 .addGap(35, 35, 35)
-                                .addComponent(enterInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(customerInputPanelLayout.createSequentialGroup()
-                                .addGap(260, 260, 260)
-                                .addComponent(checkOutLabel))))
+                                .addComponent(enterInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(customerInputPanelLayout.createSequentialGroup()
                         .addGap(287, 287, 287)
                         .addComponent(confirmationButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -401,9 +392,7 @@ String finalCheckOut;
                         .addComponent(phoneNumLabel)
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, customerInputPanelLayout.createSequentialGroup()
-                        .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(checkInLabel)
-                            .addComponent(emailAddLabel))
+                        .addComponent(emailAddLabel)
                         .addGap(18, 18, 18)))
                 .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(customerInputPanelLayout.createSequentialGroup()
@@ -438,11 +427,7 @@ String finalCheckOut;
                 .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(enterEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(emailAddLabel))
-                .addGap(44, 44, 44)
-                .addGroup(customerInputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(checkInLabel)
-                    .addComponent(checkOutLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(confirmationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
@@ -580,8 +565,6 @@ String finalCheckOut;
     }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel checkInLabel;
-    private javax.swing.JLabel checkOutLabel;
     private java.awt.Button confirmationButton;
     private static javax.swing.JPanel customerInputPanel;
     private javax.swing.JLabel emailAddLabel;

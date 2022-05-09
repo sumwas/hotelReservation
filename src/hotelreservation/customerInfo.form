@@ -86,10 +86,6 @@
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                   <Component id="enterInfo" min="-2" pref="242" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="260" max="-2" attributes="0"/>
-                                  <Component id="checkOutLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -107,10 +103,7 @@
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="checkInLabel" min="-2" max="-2" attributes="0"/>
-                              <Component id="emailAddLabel" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="emailAddLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -157,12 +150,7 @@
                       <Component id="enterEmailAddress" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="emailAddLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="checkInLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="checkOutLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="52" max="32767" attributes="0"/>
+                  <EmptySpace pref="109" max="32767" attributes="0"/>
                   <Component id="confirmationButton" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
@@ -193,16 +181,6 @@
         <Component class="javax.swing.JLabel" name="emailAddLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Email address: "/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="checkInLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Check-in date:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="checkOutLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Check out date:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="guestNumLabel">
