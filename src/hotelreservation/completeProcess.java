@@ -5,6 +5,21 @@
 package hotelreservation;
 
 import static hotelreservation.customerInfo.selectedRoomType;
+import java.io.File;
+import java.io.FileInputStream;  
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;  
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.poi.ss.usermodel.Cell;  
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;  
+import org.apache.poi.xssf.usermodel.XSSFSheet;  
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;  
+import javax.swing.*;
 
 /**
  *
@@ -21,9 +36,9 @@ private String checkIn;
 private String checkOut;
 int selectedCheckIn; 
 int selectedCheckOut;
-  int confirmationNum;  
+static int confirmationNum;  
   
-  
+ int roomNum; 
   
 static String selectedRoomType;
 
@@ -36,8 +51,8 @@ int monthIn;
 int dayIn;
 int yearIn;
 
- String finalCheckIn;
- String finalCheckOut;
+static String finalCheckIn;
+static String finalCheckOut;
  
  String cardName;
  String cardNum;
@@ -81,10 +96,22 @@ int yearIn;
  
  
  
- 
- public completeProcess(int number) {
+ /**
+  * 
+  * @param Cnumber
+  * @param roomType
+  * @param checkin
+  * @param checkout
+  * @throws IOException 
+  */
+ public completeProcess(int Cnumber, String roomType, String checkin, String checkout) throws IOException {
      initComponents();
-     resNumHolder.setText("" + number);
+     confirmationNum = Cnumber;
+     selectedRoomType = roomType;
+     finalCheckIn = checkin;
+     finalCheckOut = checkout;
+     roomNum = insertInSchedule(confirmationNum, selectedRoomType, finalCheckIn, finalCheckOut);
+     resNumHolder.setText("" + roomNum);
  }
          
  /*
@@ -113,11 +140,125 @@ int yearIn;
 
  
  */
- 
+ /**
+ * 
+ * @param confirmationNumber
+ * @param roomType
+ * @return 
+ */
+    public static int insertInSchedule(int confirmationNumber, String roomType, String checkinDate, String checkoutDate) throws FileNotFoundException, IOException{
+        String excelFilePath = "Hotel_Schedule.xlsx";
+        File file = new File(excelFilePath);
+        DataFormatter formatter = new DataFormatter();
+        
+        int roomNum = 1;
+        int startingRow = 1;
+        int endingRow = 15;
+        int startingCol = 1;
+        int endingCol = 7;
+        boolean found = true;
+        int done = 0;
+        
+        if ("Double Queen Beds".equals(roomType)){
+            startingRow = 1;
+            endingRow = 5;
+        }
+        else if ("King Bed with Balcony".equals(roomType)){
+            startingRow = 6;
+            endingRow = 10;
+        }
+        else if ("King Bed with Lakeview".equals(roomType)){
+            startingRow = 11;
+            endingRow = 15;
+        }
+        if ("5-9-2022".equals(checkinDate)){
+            startingCol = 1;
+        }
+        else if ("5-10-2022".equals(checkinDate)){
+            startingCol = 2;
+        }
+        else if ("5-11-2022".equals(checkinDate)){
+            startingCol = 3;
+        }
+        else if ("5-12-2022".equals(checkinDate)){
+            startingCol = 4;
+        }
+        else if ("5-13-2022".equals(checkinDate)){
+            startingCol = 5;
+        }
+        else if ("5-14-2022".equals(checkinDate)){
+            startingCol = 6;
+        }
+        if ("5-10-2022".equals(checkoutDate)){
+            endingCol = 2;
+        }
+        else if ("5-11-2022".equals(checkoutDate)){
+            endingCol = 3;
+        }
+        else if ("5-12-2022".equals(checkoutDate)){
+            endingCol = 4;
+        }
+        else if ("5-13-2022".equals(checkoutDate)){
+            endingCol = 5;
+        }
+        else if ("5-14-2022".equals(checkoutDate)){
+            endingCol = 6;
+        }
+        else if ("5-15-2022".equals(checkoutDate)){
+            endingCol = 7;
+        }
+        //if roomType 1 then search rows 0-4
+        //else if roomType 2 then search 5-9
+        //else if roomType 3 then search 10 - 14
+        //endingRow = (5*roomType)-1;
+        //startingRow = endingRow - 4;
+        /*if (startingRow == 6){
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Your reservation was canceled");
+        }*/
+        try (FileInputStream excelFile = new FileInputStream(file)) {
+                
+                XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
+                XSSFSheet sheet = workbook.getSheet("Sheet1"); 
+                
+                while (done == 0 && startingRow<=endingRow) {
+                    int j = startingCol;
+                    while (j < endingCol && found == true){
+                        Cell cell = sheet.getRow(startingRow).getCell(j);
+                        if (cell == null || Objects.equals(formatter.formatCellValue(cell), "")){
+                            found = true;
+                        }
+                        else {
+                            found = false;
+                        }
+                        j++;
+                    }
+                    if (found == true){
+                        roomNum = startingRow;
+                        done = 1;
+                    }
+                    startingRow++;
+                }
+                for (int i = startingCol; i<endingCol; i++ ){
+                    //Cell cell = sheet.getRow(roomNum).getCell(i);
+                    //cell.setCellValue(confirmationNumber);
+                    Row row = sheet.createRow(roomNum);
+                    Cell entry0 = row.createCell(i);
+                    entry0.setCellValue(confirmationNumber);
+                }
+                
+                
+        }
+        return roomNum;
+    }
   //  completeProcess(String firstName, String lastName, String guestNum, String phoneNumber, String emailAddress, int confirmationNum) {
   //      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
   //  }
 
+    /*private static void getRoomType() throws IOException{
+        int roomNumber = insertInSchedule(confirmationNum, selectedRoomType, finalCheckIn, finalCheckOut);
+        resNumHolder.setText("" + Cnumber);
+    }*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -173,7 +314,7 @@ int yearIn;
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -196,11 +337,12 @@ int yearIn;
             java.util.logging.Logger.getLogger(completeProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
+        //getRoomType();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
         //        new completeProcess().setVisible(true);
+        
             }
         });
     }
