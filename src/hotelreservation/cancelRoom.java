@@ -73,7 +73,7 @@ public class cancelRoom extends javax.swing.JFrame {
                     }
                     lastrow--;
                 }*/
-                for (int i = 0; i< lastrow; i++){
+                for (int i = 0; i<= lastrow; i++){
                      Cell cell = sheet.getRow(i).getCell(7);
                      if (Objects.equals(formatter.formatCellValue(cell), num)){
                          Row row = sheet.getRow(i);
