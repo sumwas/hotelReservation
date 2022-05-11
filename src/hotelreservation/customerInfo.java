@@ -471,33 +471,18 @@ String finalCheckOut;
         phoneNumber = enterPhoneNumber.getText().trim();
         emailAddress = enterEmailAddress.getText().trim();
         
-        /*
+        
         //Check for empty fields, else write user info to file
         if(firstName.isEmpty() || lastName.isEmpty() || guestNum.isEmpty() 
-           || phoneNumber.isEmpty() || emailAddress.isEmpty() || checkOutCombo.getSelectedIndex() == -1){
+           || phoneNumber.isEmpty() || emailAddress.isEmpty()){
             JOptionPane.showMessageDialog(null, "Please enter all text fields!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        else{
-            try {
-                writeToFile(firstName,lastName, guestNum, phoneNumber,emailAddress,checkIn,checkOut);
-                int confirmationNum = getLastRow();
+        } else{
 
-            
-                //linking confirmation page, dependent
-                new confirmation(firstName, lastName, guestNum, phoneNumber, emailAddress, confirmationNum).setVisible(true);
-                this.setVisible(false);
-        
-            
-            } catch (IOException ex) {
-                Logger.getLogger(customerInfo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        */
         
                 //linking confirmation page, dependent
                 new confirmation(firstName, lastName, guestNum, phoneNumber, emailAddress, confirmationNum, selectedRoomType, checkIn, checkOut, totalPrice, roomPrice, dayCount, features, finalCheckIn, finalCheckOut).setVisible(true);
                 this.setVisible(false);
+        }
         
     
     /*links this panel to hotelRoom via button click
