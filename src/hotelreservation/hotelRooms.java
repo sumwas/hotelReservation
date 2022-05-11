@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
@@ -162,7 +163,6 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
     int totalNights = 0;
     int datesMatch = 0;
     String excelFilePath = "Hotel_Schedule.xlsx";
-    File file = new File(excelFilePath);
     roomsArrayList = new ArrayList();
     int selectedDayOfWeek = checkInCombo.getItemAt(selectedCheckIn).getDayOfWeek().getValue();
         //if statement prevents crash from null selection
@@ -170,7 +170,7 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
             totalNights = (checkOutCombo.getItemAt(selectedCheckOut).getDayOfMonth() - 
                     checkInCombo.getItemAt(selectedCheckIn).getDayOfMonth()); 
         }
-        try (FileInputStream excelFile = new FileInputStream(file)) {   
+        try (InputStream excelFile = hotelRooms.class.getResourceAsStream("Hotel_Schedule.xlsx");) {   
             XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
             XSSFSheet sheet = workbook.getSheet("Sheet1"); 
             //loop through rooms, then loop only through the selected dates
@@ -194,7 +194,6 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
             outFile.close();      
         } 
         //TEST LINE
-        System.out.println("Rooms available: " + roomsArrayList);
     return roomsArrayList;
     }
     
@@ -386,16 +385,13 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
         
         if (doubleLakeSelected.isSelected()){
             roomPrice = 50;
-            System.out.println(" " + roomPrice);
         }
              if (kingBalconySelected.isSelected()){
             roomPrice = 100;
-            System.out.println(" " + roomPrice);
         }
         
             if (kingLakeSelected.isSelected()){
             roomPrice = 150;
-            System.out.println(" " + roomPrice);
         }
             
     // String inString = checkInCombo.getItemAt(selectedCheckIn).getValue();
@@ -404,13 +400,7 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
            int checkInDay = checkInCombo.getItemAt(selectedCheckIn).getDayOfWeek().getValue();
            int checkOutDay = checkOutCombo.getItemAt(selectedCheckOut).getDayOfWeek().getValue();
 
-           System.out.println("check in "+checkInDay);
-           System.out.println("check out "+checkOutDay);
-     //      System.out.println("check in string " +checkIn);
-         //  System.out.println(inString);
-         //  System.out.println(outString);
-         System.out.println(selectedCheckIn);
-     //   System.out.println(checkInCombo.getItemAt(selectedCheckIn).().getValue());
+
         
 
          monthIn = checkInCombo.getItemAt(selectedCheckIn).getMonthValue();
@@ -421,14 +411,11 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
        dayOut = checkOutCombo.getItemAt(selectedCheckOut).getDayOfMonth();
        finalCheckIn = monthIn + "-" + "" + dayIn + "-" + "" + yearIn;
        finalCheckOut = monthOut + "-" + "" + dayOut + "-" + "" + yearIn;
-      System.out.println(finalCheckIn);
-      System.out.println(finalCheckOut);
+
            
            dayCount = (dayOut) - (dayIn);
            totalPrice = roomPrice * dayCount;
-           System.out.println("days " +dayCount);
-           System.out.println("Total " +totalPrice);
-        
+
     new selectingRoomFeatures(selectedRoomType, totalPrice, roomPrice, dayCount, finalCheckIn, finalCheckOut).setVisible(true);
      this.setVisible(false);  
         }
