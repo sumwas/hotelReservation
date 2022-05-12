@@ -4,22 +4,17 @@
  */
 package hotelreservation;
 
-import static hotelreservation.customerInfo.selectedRoomType;
 import java.io.File;
 import java.io.FileInputStream;  
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Iterator;  
+import java.io.IOException; 
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.poi.ss.usermodel.Cell;  
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;  
 import org.apache.poi.xssf.usermodel.XSSFSheet;  
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;  
-import javax.swing.*;
+
 
 /**
  *
@@ -27,13 +22,7 @@ import javax.swing.*;
  */
 public class completeProcess extends javax.swing.JFrame {
     
-    private String firstName;
-private String lastName;
-private String guestNum;
-private String phoneNumber;
-private String emailAddress;
-private String checkIn;
-private String checkOut;
+
 int selectedCheckIn; 
 int selectedCheckOut;
 static int confirmationNum;  
@@ -115,32 +104,7 @@ static String finalCheckOut;
      resNumHolder1.setText(""+confirmationNum);
  }
          
- /*
-    public completeProcess(String first, String last, String guest, String phone, String email, int number, String type, String dateIn, String dateOut, int total, int roomAmount, int days, int feats, String timeIn, String timeOut, String cName, String cNum, String cardEx, String cardC) {
-        initComponents();
-               firstName = first;
-               lastName = last;
-               guestNum = guest;
-               phoneNumber = phone;
-               emailAddress = email;
-               resNumHolder.setText("" + number);
-               selectedRoomType = type;
-                checkIn = dateIn;
-                checkOut = dateOut;
-                totalPrice = total;
-                roomPrice = roomAmount;
-                dayCount = days;
-                features = feats;
-                finalCheckIn = timeIn;
-                finalCheckOut = timeOut;
-                cardName = cName;
-                cardNum = cNum;
-                cardExp = cardEx;
-                cardCvc = cardC;
-    }
-
  
- */
  /**
  * 
  * @param confirmationNumber
@@ -213,10 +177,6 @@ static String finalCheckOut;
         //else if roomType 3 then search 10 - 14
         //endingRow = (5*roomType)-1;
         //startingRow = endingRow - 4;
-        /*if (startingRow == 6){
-            JFrame jFrame = new JFrame();
-            JOptionPane.showMessageDialog(jFrame, "Your reservation was canceled");
-        }*/
         try (FileInputStream excelFile = new FileInputStream(file)) {
                 
                 XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
@@ -241,8 +201,6 @@ static String finalCheckOut;
                     startingRow++;
                 }
                 for (int i = startingCol; i<endingCol; i++ ){
-                    //Cell cell = sheet.getRow(roomNum).getCell(i);
-                    //cell.setCellValue(confirmationNumber);
                     Row row = sheet.createRow(roomNum);
                     Cell entry0 = row.createCell(i);
                     entry0.setCellValue(confirmationNumber);
@@ -252,14 +210,7 @@ static String finalCheckOut;
         }
         return roomNum;
     }
-  //  completeProcess(String firstName, String lastName, String guestNum, String phoneNumber, String emailAddress, int confirmationNum) {
-  //      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-  //  }
-
-    /*private static void getRoomType() throws IOException{
-        int roomNumber = insertInSchedule(confirmationNum, selectedRoomType, finalCheckIn, finalCheckOut);
-        resNumHolder.setText("" + Cnumber);
-    }*/
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
