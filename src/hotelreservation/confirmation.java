@@ -7,24 +7,17 @@ package hotelreservation;
 
 
 
-import static hotelreservation.customerInfo.selectedRoomType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -101,9 +94,7 @@ int yearIn;
      * @param day
      * @param year
      */
-   // public confirmation() {
-     //   initComponents();
-    //}
+
         //information will be set to the jlabel it is assigned     
         public confirmation(String first, String last, String guest, String phone, String email, int number, String type, String dateIn, String dateOut, int total, int roomAmount, int days, int feats, String timeIn, String timeOut){
         initComponents();
@@ -112,21 +103,14 @@ int yearIn;
         guestHolder.setText(guest);
         phoneHolder.setText(phone);
         emailHolder.setText(email);
-      //  resNumber.setText(number + "");
         selectedRoomHolder.setText(type);
-      //  checkInHolder.setText(dateIn);
-      //  checkOutHolder.setText(dateOut);
         totalPriceHolder.setText("$" + total );
         roomPriceHolder.setText("$" + roomAmount);
         dayCountHolder.setText("" +days);
         featurePriceHolder.setText("$" + feats);
-    //    monthInHolder.setText("" +month);
-      //  dayInHolder.setText("" +day);
-        //yearInHolder.setText("" +year);
         checkInHolder.setText(""+timeIn);
         checkOutHolder.setText(""+timeOut);
-      //  checkIn = dateIn;
-       // checkOut = dateOut;
+
         
         selectedRoomType = type;
         firstName = first;
@@ -141,10 +125,6 @@ int yearIn;
         roomPrice = roomAmount;
         dayCount = days;
         features = feats;
-
-        
-      //cardHolder.setText(cardNumber);
-       
     }
 
     private confirmation() {
@@ -246,9 +226,7 @@ int yearIn;
     public static int getLastRow() throws FileNotFoundException, IOException{
         String excelFilePath = "hotel_info.xlsx";
         File file = new File(excelFilePath);
-        //int number = Integer.parseInt(num);
         int lastrow;
-        //DataFormatter formatter = new DataFormatter();
         try (FileInputStream excelFile = new FileInputStream(file)) {
                 
                 XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
@@ -265,14 +243,7 @@ int yearIn;
         return lastrow;
     }
     
-    
    
-    
-    
-    
- //   confirmation(String firstName, String lastName, String guestNum, String phoneNumber, String emailAddress, int confirmationNum) {
-  //      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-  //  }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -647,9 +618,6 @@ int yearIn;
         }
         
         
-                        //linking confirmation page, dependent
-             //   new completeProcess(firstName, lastName, guestNum, phoneNumber, emailAddress, confirmationNum).setVisible(true);
-             //   this.setVisible(false);
         
     }//GEN-LAST:event_writeButtonActionPerformed
 
