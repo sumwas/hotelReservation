@@ -4,24 +4,8 @@
  * and open the template in the editor.
  */
 package hotelreservation;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -76,9 +60,6 @@ String finalCheckOut;
         features = feats;
         finalCheckIn = timeIn;
        finalCheckOut = timeOut;
-    //    yearIn = year;
-      // customerInfo = info;
-       // numGenerate = number; 
     }
       
       
@@ -95,39 +76,8 @@ String finalCheckOut;
 
     public customerInfo() {
         initComponents();
-        /*Calling getCheckInDates(), iterating through arrayList to create 
-        array to set in check-in comboBox */
-        /*
-            ArrayList checkInDays = getCheckInDates();
-            String[] checkInDaysArray = new String[checkInDays.size()];
-                for(int i = 0; i < checkInDays.size(); i++){
-                    checkInDaysArray[i] = checkInDays.get(i).toString() + " ";
-                }
-            checkInCombo.setModel(new javax.swing.DefaultComboBoxModel<>(checkInDaysArray)); 
-        */
     }
-    
-
-    /** getCheckIn dates creates an ArrayList of the valid check in dates for 
-     * the user starting with the current date (today's date) until Saturday
-     * of the same week
-     * @return the ArrayList with the check out dates, as specified
-     */
-/*
-    public static ArrayList getCheckInDates(){
-        ArrayList currentWeek = new ArrayList(); 
-        LocalDate localDate = LocalDate.now();
-        LocalDate sunday = localDate.with(TemporalAdjusters.next(DayOfWeek.SUNDAY)); 
-            //while condition increments current day by 1 day
-            //adding all the days that are before sunday to the array
-            while(localDate.isBefore(sunday)){
-                currentWeek.add(localDate.format(DateTimeFormatter.ofPattern("MMM dd,yyyy ")));
-                localDate = localDate.plusDays(1);
-            }    
-       return currentWeek; 
-    }
-    */
-    
+        
     
     /** getCheckOutDates method determines valid user dates for checking out,
      * starting at the selectedCheckIn + 1. 
@@ -136,26 +86,7 @@ String finalCheckOut;
      * Sunday.
      * 
     */
-/*
-    public void getCheckOutDates(int selectedCheckIn){
-        ArrayList validDatesArrayList = new ArrayList();
-        LocalDate validCheckOut = LocalDate.now().plusDays(selectedCheckIn);
-        LocalDate sunday = validCheckOut.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
-            //adding dates to the arrayList
-            while(validCheckOut.isBefore(sunday)){
-                validCheckOut = validCheckOut.plusDays(1);
-                validDatesArrayList.add(validCheckOut.format(DateTimeFormatter.ofPattern("MMM dd,yyyy ")));
-            }
-        String[] validDatesArray = new String[validDatesArrayList.size()];
-            //converting arrayList to string[]
-            for(int i = 0; i < validDatesArrayList.size(); i++){
-                validDatesArray[i] = validDatesArrayList.get(i).toString() + " ";
-            }  
-        checkOutCombo.setModel(new javax.swing.DefaultComboBoxModel<>(validDatesArray));
-    }
-    
- */   
-    
+
     /** writeToFile method is called when user click button, and its purpose is
      * taking the users input and writing it to the next available row
      * in the excel sheet (containing all reservations made)
@@ -170,61 +101,7 @@ String finalCheckOut;
      * @throws IOException
      */
     
-    
-    
-    
-    /*
-    public static void writeToFile(String first, String last, String numOfGuest, String phone, String email, String inDate, String outDate) throws FileNotFoundException, IOException{
-        //opening excel file
-        String excelFilePath = "hotel_info.xlsx";
-        File file = new File(excelFilePath); 
-            try (FileInputStream excelFile = new FileInputStream(file)) {
-                
-                XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
-                XSSFSheet sheet = workbook.getSheet("Sheet1"); 
-                                
-                int lastRow = sheet.getLastRowNum();
-                //last row needs to be incremted, otherwise will overwrite
-                lastRow++;
-                Row row = sheet.createRow(lastRow);
-               
-                Cell entry0 = row.createCell(0);
-                entry0.setCellValue(first);
-                
-                Cell entry1 = row.createCell(1);
-                entry1.setCellValue(last);
-                
-                Cell entry2 = row.createCell(2);
-                entry2.setCellValue(numOfGuest);
-                
-                Cell entry3 = row.createCell(3);
-                entry3.setCellValue(phone);
-                
-                Cell entry4 = row.createCell(4);
-                entry4.setCellValue(email);
-                
-                Cell entry5 = row.createCell(5);
-                entry5.setCellValue(inDate);
-                
-                Cell entry6 = row.createCell(6);
-                entry6.setCellValue(outDate);
-                
-                Cell entry7 = row.createCell(7);
-                entry7.setCellValue(lastRow);
-                
-                excelFile.close();
-                
-                //this is what writes/saves the file
-                FileOutputStream outFile = new FileOutputStream(new File(excelFilePath));
-                workbook.write(outFile);
-                outFile.close();
-                
-            }
-    }
-
-    
-    
-    
+        
     
     /**
      *
@@ -233,30 +110,6 @@ String finalCheckOut;
      * @throws IOException
      */
     
-    /*
-    public static int getLastRow() throws FileNotFoundException, IOException{
-        String excelFilePath = "hotel_info.xlsx";
-        File file = new File(excelFilePath);
-        //int number = Integer.parseInt(num);
-        int lastrow;
-        //DataFormatter formatter = new DataFormatter();
-        try (FileInputStream excelFile = new FileInputStream(file)) {
-                
-                XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
-                XSSFSheet sheet = workbook.getSheet("Sheet1"); 
-                lastrow = sheet.getLastRowNum();
-                excelFile.close();
-                
-            try ( //this is what writes/saves the file
-                    FileOutputStream outFile = new FileOutputStream(new File(excelFilePath))) {
-                workbook.write(outFile);
-            }
-                
-        }
-        return lastrow;
-    }
-    
-    */
         /**
          * This method is called from within the constructor to initialize the form.
          * WARNING: Do NOT modify this code. The content of this method is always
@@ -484,11 +337,6 @@ String finalCheckOut;
                 this.setVisible(false);
         }
         
-    
-    /*links this panel to hotelRoom via button click
-    confirmation confirm = new confirmation();
-    confirm.show();
-    dispose();*/
     }//GEN-LAST:event_confirmationButtonActionPerformed
 
     private void enterLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterLastNameActionPerformed
