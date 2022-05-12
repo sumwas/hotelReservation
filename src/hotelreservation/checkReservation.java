@@ -8,14 +8,12 @@ import java.io.File;
 import java.io.FileInputStream;  
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Iterator;  
+import java.io.IOException; 
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.ss.usermodel.Cell;  
 import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Row;  
 import org.apache.poi.xssf.usermodel.XSSFSheet;  
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;  
 import javax.swing.*;
@@ -53,9 +51,7 @@ public class checkReservation extends javax.swing.JFrame {
         public static void readExcelFile(String num, String last) throws FileNotFoundException, IOException{
         String excelFilePath = "hotel_info.xlsx";
         File file = new File(excelFilePath);
-        //int number = Integer.parseInt(num);
         DataFormatter formatter = new DataFormatter();
-        //int reservationFound = 0;
         try (FileInputStream excelFile = new FileInputStream(file)) {
                 
                 XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
