@@ -8,8 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;  
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Iterator;  
+import java.io.IOException; 
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,7 +54,6 @@ public class cancelRoom extends javax.swing.JFrame {
     public static void readExcelFile(String num, String last) throws FileNotFoundException, IOException{
         String excelFilePath = "hotel_info.xlsx";
         File file = new File(excelFilePath);
-        //int number = Integer.parseInt(num);
         DataFormatter formatter = new DataFormatter();
         try (FileInputStream excelFile = new FileInputStream(file)) {
                 
@@ -64,15 +62,7 @@ public class cancelRoom extends javax.swing.JFrame {
                 int lastrow = sheet.getLastRowNum();
                 int done = 0;
                 //loops through each row in col 6 and matches with regristration number
-                /*while (lastrow >= 0 && done == 0){
-                    Row row = sheet.getRow(lastrow);
-                    if (Objects.equals(row.getCell(7).getStringCellValue(), num)){
-                        done = 1;
-                        Cell entry8 = row.createCell(8);
-                        entry8.setCellValue("F");
-                    }
-                    lastrow--;
-                }*/
+
                 for (int i = 0; i<= lastrow; i++){
                      Cell cell = sheet.getRow(i).getCell(7);
                      if (Objects.equals(formatter.formatCellValue(cell), num)){
