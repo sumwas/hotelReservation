@@ -368,6 +368,11 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         // TODO add your handling code here:
         //radio button error check
+        /**nextButtonActionPerformed() method will take the selected room and give it a value to be input in the file in the next steps
+         * checks the room selected and sets the roomPrice depending on the corresponding selection
+         * the date in and date out will be sent through this method and the amount of days the customer will occupy will be set here
+         * the totalPrice will be calculated and sent to the next step, to see if there will be features added or not, then the totalPrice will be output to the confirmation and finally added to the excel file
+         */
         if(roomSelectionGroup.getSelection() == null){
             JOptionPane.showMessageDialog(null, "Please select a room!", "Error", JOptionPane.ERROR_MESSAGE);
         } else{
