@@ -9,13 +9,11 @@ package hotelreservation;
  * @author josea
  */
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
 
 public class LogIn_2 {
    public static void main(String args[]) throws IOException{
@@ -49,19 +47,18 @@ public class LogIn_2 {
       }
       
       if(flag) {
-         //System.out.println("You are a member!");
+
          JOptionPane.showMessageDialog(null, "You are a member!");
          JOptionPane.showMessageDialog(null, "You get to choose a REWARD!");
          String[] buttons = {"Massage Coupon","10% discount","An Upgrade","A towel"};// the buttons' names (parameter)
          int cont = JOptionPane.showOptionDialog(null,"Select a Reward", "Options of Rewards:", 0, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[0]); 
-         //System.out.println("Number of occurrences is: "+count);
+
          outMsg = "You Chose " + buttons[cont] +". Yay!"; //welcome with the character pressed
          JOptionPane.showMessageDialog(null,outMsg);
          JOptionPane.showMessageDialog(null, "Thank you for being a member!");
          
       } else {
          JOptionPane.showMessageDialog(null, "You are nor a member "); 
-         //System.out.println("You are nor a member, Do you want to become one?");
          int option = JOptionPane.showConfirmDialog(null, "Do you want to become one?"); // using will press "yes" or " no" or "cancel"
          
          switch (option){
