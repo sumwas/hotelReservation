@@ -199,7 +199,6 @@ String checkIfEmail2 = ".com";
     a reward */
     private void logIn() throws IOException{
         
-       // boolean win = false;
       boolean done = false;
       
       Scanner sc1;
@@ -208,7 +207,6 @@ String checkIfEmail2 = ".com";
       String input = null;
      
       email = JOptionPane.showInputDialog("Enter your email: ");
-      //System.out.print(email);
       while(isEmpty(email)){
                    JOptionPane.showMessageDialog(null, "Please enter the text field!", "Error", JOptionPane.ERROR_MESSAGE);
                    email = JOptionPane.showInputDialog("Enter your email: ");
@@ -241,19 +239,17 @@ String checkIfEmail2 = ".com";
       }
       
       if(flag) {
-         //System.out.println("You are a member!");
          JOptionPane.showMessageDialog(null, "You are a member!");
          JOptionPane.showMessageDialog(null, "You get to choose a REWARD!");
          String[] buttons = {"Massage Coupon","10% discount","An Upgrade","A towel"};// the buttons' names (parameter)
          int cont = JOptionPane.showOptionDialog(null,"Select a Reward", "Options of Rewards:", 0, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[0]); 
-         //System.out.println("Number of occurrences is: "+count);
          outMsg = "You Chose " + buttons[cont] +". Yay!"; //welcome with the character pressed
          JOptionPane.showMessageDialog(null,outMsg);
          JOptionPane.showMessageDialog(null, "Thank you for being a member!");
          
       } else {
          JOptionPane.showMessageDialog(null, "You are not a member "); 
-         //System.out.println("You are not a member, Do you want to become one?");
+         
          int option = JOptionPane.showConfirmDialog(null, "Do you want to become one?"); // using will press "yes" or " no" or "cancel"
          
          switch (option){
