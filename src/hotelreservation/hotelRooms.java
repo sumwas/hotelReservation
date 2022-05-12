@@ -8,14 +8,12 @@ package hotelreservation;
 
 import java.util.List;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -60,8 +58,6 @@ ArrayList roomsArrayList;
 boolean[] roomsTypesAvailable;
 
 static String selectedRoomType;
-//String checkIn;
-//String checkOut;
 int totalPrice;
 int roomPrice;
 int dayCount;
@@ -170,7 +166,7 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
             totalNights = (checkOutCombo.getItemAt(selectedCheckOut).getDayOfMonth() - 
                     checkInCombo.getItemAt(selectedCheckIn).getDayOfMonth()); 
         }
-        try (InputStream excelFile = hotelRooms.class.getResourceAsStream("Hotel_Schedule.xlsx");) {   
+        try (InputStream excelFile = hotelRooms.class.getResourceAsStream("/Hotel_Schedule.xlsx");) {   
             XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
             XSSFSheet sheet = workbook.getSheet("Sheet1"); 
             //loop through rooms, then loop only through the selected dates
@@ -394,9 +390,7 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
             roomPrice = 150;
         }
             
-    // String inString = checkInCombo.getItemAt(selectedCheckIn).getValue();
-    //   LocalDate  outString = checkOutCombo.getItemAt(selectedCheckOut);
-            
+
            int checkInDay = checkInCombo.getItemAt(selectedCheckIn).getDayOfWeek().getValue();
            int checkOutDay = checkOutCombo.getItemAt(selectedCheckOut).getDayOfWeek().getValue();
 
@@ -417,14 +411,10 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
            totalPrice = roomPrice * dayCount;
 
     new selectingRoomFeatures(selectedRoomType, totalPrice, roomPrice, dayCount, finalCheckIn, finalCheckOut).setVisible(true);
-     this.setVisible(false);  
+    this.setVisible(false);  
         }
      
-   //  this.checkIn.getSelectedValue();
-        
-        //selecting_room room = new selectingRoomFeatures();
-       // room.show();
-       // dispose();
+
     }//GEN-LAST:event_nextButtonActionPerformed
 
     
@@ -465,9 +455,7 @@ public ArrayList searchRoomAvailability() throws FileNotFoundException, IOExcept
         // TODO add your handling code here:
         outMsg = "$150"; //welcome with the character pressed
         JOptionPane.showMessageDialog(null,outMsg);
-        
-        //JOptionPane.showMessageDialog(null, "Do you want this room? "); 
-        //System.out.println("You are nor a member, Do you want to become one?");
+
         int option = JOptionPane.showConfirmDialog(null, "Do you want room?"); // using will press "yes" or " no" or "cancel"
         
         switch (option){
